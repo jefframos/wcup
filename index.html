@@ -190,6 +190,14 @@
 
         .tv strong {
             display: block;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tv strong img {
+            height: 20px;
+            width: auto;
         }
 
         .stream {
@@ -314,6 +322,28 @@
             gap: 12px;
         }
 
+        .floatingMatchItem.clickable {
+            cursor: pointer;
+        }
+
+        .floatingMatchItem.clickable:hover {
+            background: #f8fafc;
+        }
+
+        .floatingDayHeader {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            padding: 10px 12px;
+            margin: 0 -12px;
+            background: #e2e8f0;
+            color: #0f172a;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+        }
+
         .floatingMatchItem:last-child {
             border-bottom: none;
         }
@@ -418,6 +448,32 @@
             width: 30px;
             color: #64748b;
         }
+
+        .backBtn {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #0f172a;
+            margin-right: 8px;
+            display: none;
+        }
+
+        .backBtn:hover {
+            background: #e2e8f0;
+        }
+
+        .backBtn.visible {
+            display: inline-block;
+        }
+
+        .dateLine {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
     </style>
 </head>
 
@@ -433,6 +489,7 @@
         <button class="today" id="todayBtn">Today</button>
 
         <div class="dateLine">
+            <button class="backBtn" id="backBtn">← Back</button>
             <strong id="dateLabel"></strong>
             <input id="datePicker" type="date" />
         </div>
@@ -516,12 +573,16 @@
         let selectedTeam = '';
         let selectedGroup = '';
         let liveRefreshTimer = null;
+        let previousSelectedDate = '';
+        let previousSelectedTeam = '';
+        let previousSelectedGroup = '';
 
         const datePicker = document.getElementById('datePicker');
         const dateLabel = document.getElementById('dateLabel');
         const teamChips = document.getElementById('teamChips');
         const matches = document.getElementById('matches');
         const summary = document.getElementById('summary');
+        const backBtn = document.getElementById('backBtn');
 
         function isoToday() {
             const d = new Date();
@@ -569,6 +630,16 @@
             return new Date(`${isoDate}T12:00:00`).toLocaleDateString('en-GB', {
                 weekday: 'long', day: 'numeric', month: 'long'
             });
+        }
+
+        function getSortedUniqueDates() {
+            return [...new Set(fixtures.map(match => match.date))].sort();
+        }
+
+        function getDayNumberLabel(isoDate) {
+            const dates = getSortedUniqueDates();
+            const idx = dates.indexOf(isoDate);
+            return idx >= 0 ? `DAY ${idx + 1}` : 'DAY ?';
         }
 
         function setDate(isoDate) {
@@ -697,6 +768,14 @@
         }
 
         function render() {
+            // Show or hide back button based on whether there's a previous state
+            const hasPreviousState = previousSelectedDate || previousSelectedTeam || previousSelectedGroup;
+            if (hasPreviousState) {
+                backBtn.classList.add('visible');
+            } else {
+                backBtn.classList.remove('visible');
+            }
+
             dateLabel.textContent = `${selectedDate === isoToday() ? 'Today · ' : ''}${prettyDate(selectedDate)}`;
             summary.innerHTML = '';
             renderChips();
@@ -728,24 +807,41 @@
             }
 
             htmlContent += rows.map(match => `
-        <article class="match">
+        <article class="match" data-group="${match.group}" style="cursor: pointer;">
           <div class="matchTop">
             <div>
               <div class="fixture">
                                 ${renderTeam(match.teams?.[0])} <span class="scorePill">${getMatchScoreText(match)}</span> ${renderTeam(match.teams?.[1])}
               </div>
-              <div class="meta">@ ${match.day} ${match.date ? new Date(match.date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }) : ''} · ${match.round}${match.group ? ` · Group ${match.group}` : ''}</div>
+                            <div class="meta">${getDayNumberLabel(match.date)} · ${match.day} ${match.date ? new Date(match.date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }) : ''} · ${match.round}${match.group ? ` · Group ${match.group}` : ''}</div>
             </div>
             <div class="time">${match.timeUK}</div>
           </div>
           <div class="tv">
-            <strong>${match.broadcast || 'TBC'}</strong>
+            <strong>${getBroadcasterIcon(match.broadcast)} ${match.broadcast || 'TBC'}</strong>
             ${match.streaming ? `<div class="stream">${match.streaming}</div>` : ''}
           </div>
         </article>
       `).join('');
 
             matches.innerHTML = htmlContent;
+
+            // Make match cards clickable to navigate to group
+            document.querySelectorAll('.match').forEach(card => {
+                card.addEventListener('click', () => {
+                    const group = card.dataset.group;
+                    if (group) {
+                        // Save current state before changing
+                        previousSelectedDate = selectedDate;
+                        previousSelectedTeam = selectedTeam;
+                        previousSelectedGroup = selectedGroup;
+
+                        selectedGroup = group;
+                        selectedTeam = '';
+                        render();
+                    }
+                });
+            });
 
             function renderTeam(team) {
                 if (!team) return '';
@@ -835,7 +931,7 @@
                                         <td>
                                             <div class="standings-team">
                                                 ${FLAGS[team] || '🏳️'}
-                                                <span>${team}</span>
+                                                <span>${getShortName(team)}</span>
                                             </div>
                                         </td>
                                         <td class="standings-stat">${stats.P}</td>
@@ -950,6 +1046,16 @@
             };
         }
 
+        backBtn.addEventListener('click', () => {
+            selectedDate = previousSelectedDate;
+            selectedTeam = previousSelectedTeam;
+            selectedGroup = previousSelectedGroup;
+            previousSelectedDate = '';
+            previousSelectedTeam = '';
+            previousSelectedGroup = '';
+            render();
+        });
+
         if (nextMatchBtn) {
             nextMatchBtn.onclick = () => {
                 const nextMatch = fixtures.find(match => `${match.date} ${match.timeUK}` >= `${selectedDate} ${new Date().toTimeString().slice(0, 5)}` || match.date > selectedDate);
@@ -972,17 +1078,53 @@
                 return;
             }
 
-            floatingMenuContent.innerHTML = allMatches.map(match => {
-                const formattedDate = match.date ? new Date(match.date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }) : '';
-                return `
-                <div class="floatingMatchItem">
-                    <div class="floatingMatchInfo">
-                        <div class="floatingMatchTeams">${renderTeamShort(match.teams?.[0])} <span class="scorePill">${getMatchScoreText(match)}</span> ${renderTeamShort(match.teams?.[1])}</div>
-                        <div class="floatingMatchMeta">${match.day} ${formattedDate} · ${match.timeUK}${match.group ? ` · Group ${match.group}` : ''} · ${match.round}</div>
+            const dates = getSortedUniqueDates();
+            let html = '';
+
+            dates.forEach(date => {
+                const dayMatches = allMatches.filter(match => match.date === date);
+                if (!dayMatches.length) {
+                    return;
+                }
+
+                const headingDate = new Date(`${date}T12:00:00`).toLocaleDateString('en-GB', {
+                    weekday: 'long', day: 'numeric', month: 'long'
+                });
+
+                html += `<div class="floatingDayHeader">${getDayNumberLabel(date)} · ${headingDate}</div>`;
+                html += dayMatches.map(match => {
+                    const formattedDate = match.date ? new Date(match.date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }) : '';
+                    return `
+                    <div class="floatingMatchItem clickable" data-group="${match.group || ''}" data-date="${match.date || ''}">
+                        <div class="floatingMatchInfo">
+                            <div class="floatingMatchTeams">${renderTeamShort(match.teams?.[0])} <span class="scorePill">${getMatchScoreText(match)}</span> ${renderTeamShort(match.teams?.[1])}</div>
+                            <div class="floatingMatchMeta">${match.day} ${formattedDate} · ${match.timeUK}${match.group ? ` · Group ${match.group}` : ''} · ${match.round}</div>
+                        </div>
+                        <div class="floatingMatchBroadcast">${getBroadcasterIcon(match.broadcast)} ${match.broadcast || 'TBC'}</div>
                     </div>
-                    <div class="floatingMatchBroadcast">${getBroadcasterIcon(match.broadcast)} ${match.broadcast || 'TBC'}</div>
-                </div>
-            `}).join('');
+                `;
+                }).join('');
+            });
+
+            floatingMenuContent.innerHTML = html;
+
+            floatingMenuContent.querySelectorAll('.floatingMatchItem.clickable').forEach(item => {
+                item.onclick = () => {
+                    const group = item.dataset.group;
+                    const date = item.dataset.date;
+                    if (group) {
+                        selectedGroup = group;
+                        selectedTeam = '';
+                        if (date) {
+                            selectedDate = date;
+                            datePicker.value = selectedDate;
+                        }
+                        startGroupLiveRefresh();
+                        floatingMenu.classList.remove('open');
+                        render();
+                    }
+                };
+            });
         }
 
         function renderTeamShort(team) {
@@ -993,10 +1135,10 @@
         function getBroadcasterIcon(broadcast) {
             if (!broadcast) return '';
             const bc = broadcast.toUpperCase();
-            if (bc.includes('BBC')) return '📺';
-            if (bc.includes('ITV')) return '📡';
-            if (bc.includes('STV')) return '📺';
-            return '📺';
+            if (bc.includes('BBC')) return '<img src="broadcasts/bbc.svg" alt="BBC" />';
+            if (bc.includes('ITV')) return '<img src="broadcasts/itv.svg" alt="ITV" />';
+            if (bc.includes('STV')) return '<img src="broadcasts/stv.svg" alt="STV" />';
+            return '';
         }
 
         document.getElementById('prevDay').onclick = () => jumpToMatchDay(-1);
