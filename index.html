@@ -25,7 +25,7 @@
             z-index: 10;
             background: #003399;
             color: #fff;
-            padding: 20px 16px;
+            padding: 10px 12px 8px;
             border-bottom: 3px solid #FFD700;
             backdrop-filter: blur(10px);
             box-shadow: 0 2px 12px rgba(0, 31, 102, 0.35);
@@ -33,8 +33,8 @@
         }
 
         h1 {
-            margin: 0 0 8px;
-            font-size: 28px;
+            margin: 0 0 4px;
+            font-size: 24px;
             letter-spacing: -0.03em;
             font-weight: 900;
             display: flex;
@@ -45,73 +45,79 @@
         }
 
         h1 img {
-            height: 52px;
+            height: 40px;
             width: auto;
             display: block;
         }
 
         @media (max-width: 600px) {
             h1 {
-                font-size: 24px;
+                font-size: 20px;
                 gap: 10px;
             }
 
             h1 img {
-                height: 42px;
+                height: 32px;
             }
         }
 
         .hint {
-            margin: 0 0 14px;
+            margin: 0 0 8px;
             color: #dbeafe;
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
+        .filterToggleBtn {
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 0 10px;
+            height: 32px;
+            font: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0;
+            background: #eff6ff;
+            color: #0b2a6d;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        .filterToggleBtn:hover {
+            background: #dbeafe;
+            border-color: #93c5fd;
+        }
+
+        .filterPanel {
+            display: block;
+            margin-top: 6px;
+        }
+
+        header.filters-collapsed .filterPanel {
+            display: none;
+        }
+
         .topNav {
             display: flex;
-            gap: 10px;
-            margin-bottom: 16px;
+            gap: 6px;
+            margin-bottom: 8px;
             align-items: center;
             justify-content: center;
             max-width: 720px;
             margin-left: auto;
             margin-right: auto;
-        }
-
-        .allMatchesBtn {
-            border: 1px solid #bfdbfe;
-            border-radius: 8px;
-            padding: 0 14px;
-            font: inherit;
-            font-weight: 700;
-            font-size: 13px;
-            line-height: 1;
-            background: #eff6ff;
-            color: #0b2a6d;
-            cursor: pointer;
-            transition: all 0.2s;
-            border-radius: 8px;
-            flex: 1;
-            max-width: 150px;
-            height: 36px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            white-space: nowrap;
-        }
-
-        .allMatchesBtn:hover {
-            background: #dbeafe;
-            border-color: #93c5fd;
+            flex-wrap: nowrap;
         }
 
         .timeControls {
             display: flex;
             gap: 6px;
             flex: 1;
+            min-width: 0;
         }
 
         .dateNav {
@@ -125,7 +131,7 @@
         .teamChip {
             border: 1px solid #bfdbfe;
             border-radius: 8px;
-            padding: 9px 14px;
+            padding: 0 10px;
             font: inherit;
             font-weight: 700;
             font-size: 13px;
@@ -133,6 +139,10 @@
             color: #0b2a6d;
             cursor: pointer;
             transition: all 0.2s;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .dateNav button:hover,
@@ -149,17 +159,12 @@
 
         .today {
             flex: 1;
-            max-width: 120px;
+            max-width: 92px;
             background: #FFD700;
             border-color: #FFD700;
             color: #003399;
             font-weight: 700;
             line-height: 1;
-            height: 36px;
-            padding: 0 14px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
             white-space: nowrap;
         }
 
@@ -167,22 +172,21 @@
             background: #FFC700;
         }
 
-        .dateLine {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 14px;
-            flex-wrap: wrap;
-            max-width: 720px;
-            margin-left: auto;
-            margin-right: auto;
+        .bottomDateLabel {
+            margin: 2px 0 6px;
+            color: #dbeafe;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            text-align: center;
         }
 
-        .dateLine strong {
-            font-size: 16px;
-            min-width: fit-content;
-            color: #fff;
+        .dateLine {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+            min-height: 0;
         }
 
         .calendarCard {
@@ -485,13 +489,13 @@
         }
 
         .calendarBtn {
-            width: 36px;
-            height: 36px;
-            border: 1px solid #cbd5e1;
+            width: 32px;
+            height: 32px;
+            border: 1px solid #bfdbfe;
             border-radius: 8px;
-            background: #fff;
-            color: #003399;
-            font-size: 18px;
+            background: #eff6ff;
+            color: #0b2a6d;
+            font-size: 16px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
@@ -761,7 +765,7 @@
         .listMenuContent {
             overflow-y: auto;
             flex: 1;
-            padding: 8px 12px;
+            padding: 0 12px 8px;
             -webkit-overflow-scrolling: touch;
         }
 
@@ -769,10 +773,11 @@
             position: sticky;
             top: 0;
             z-index: 1;
-            padding: 10px 12px;
-            margin: 0 -12px;
-            background: #e2e8f0;
-            color: #0f172a;
+            padding: 8px 10px;
+            margin: 0 0 6px;
+            background: #003399;
+            color: #fff;
+            border-radius: 8px;
             font-size: 12px;
             font-weight: 800;
             letter-spacing: 0.03em;
@@ -886,12 +891,73 @@
             color: #475569;
         }
 
+        .nextMatchActions {
+            margin-top: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .widgetActionBtn {
+            border: 1px solid #d1d9e6;
+            border-radius: 8px;
+            background: #f8fafc;
+            color: #0b2a6d;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            height: 30px;
+            cursor: pointer;
+        }
+
+        .widgetActionBtn:hover {
+            background: #eef2f7;
+            border-color: #c1ccda;
+        }
+
         @media (max-width: 600px) {
             .nextMatchWidget {
                 left: 10px;
                 right: 10px;
                 max-width: none;
                 min-width: 0;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 10px;
+            }
+
+            .nextMatchWidget.show {
+                display: flex;
+            }
+
+            .nextMatchTitle,
+            .nextMatchMeta {
+                display: none;
+            }
+
+            .nextMatchTeams {
+                margin: 0;
+                flex: 1;
+                min-width: 0;
+                flex-wrap: nowrap;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: 13px;
+            }
+
+            .nextMatchActions {
+                margin-top: 0;
+                display: flex;
+                gap: 6px;
+                flex: none;
+            }
+
+            .widgetActionBtn {
+                height: 28px;
+                padding: 0 8px;
+                font-size: 11px;
+                white-space: nowrap;
             }
         }
 
@@ -1003,21 +1069,20 @@
         <p class="hint">UK times · UK broadcasters · tap a flag to filter</p>
 
         <div class="topNav">
-            <button class="allMatchesBtn" id="allMatchesBtn" title="Show all matches">📋 All Matches</button>
-            <button class="allMatchesBtn" id="mosaicBtn" title="Show all matches mosaic">🧩 Mosaic</button>
             <div class="timeControls">
+                <button class="calendarBtn" id="calendarBtn" title="Pick date" aria-label="Pick date">📅</button>
                 <button class="today" id="todayBtn">Today</button>
                 <div class="dateNav">
                     <button id="prevDay" aria-label="Previous match day" title="Previous match day">←</button>
                     <button id="nextDay" aria-label="Next match day" title="Next match day">→</button>
                 </div>
             </div>
+            <button id="filterToggleBtn" class="filterToggleBtn" type="button" aria-expanded="true"
+                aria-controls="filterPanel">Hide Filters</button>
         </div>
 
         <div class="dateLine">
-            <button class="calendarBtn" id="calendarBtn" title="Pick date" aria-label="Pick date">📅</button>
             <button class="backBtn" id="backBtn">← Back</button>
-            <strong id="dateLabel"></strong>
             <input id="datePicker" type="date" />
         </div>
 
@@ -1031,7 +1096,11 @@
             <div class="calendarGrid" id="calendarGrid"></div>
         </div>
 
-        <div class="chips" id="teamChips"></div>
+        <div class="filterPanel" id="filterPanel">
+            <div class="bottomDateLabel" id="dateLabel"></div>
+
+            <div class="chips" id="teamChips"></div>
+        </div>
     </header>
 
     <main>
@@ -1043,6 +1112,10 @@
         <div class="nextMatchTitle">Next Match</div>
         <div class="nextMatchTeams" id="nextMatchTeams"></div>
         <div class="nextMatchMeta" id="nextMatchMeta"></div>
+        <div class="nextMatchActions">
+            <button class="widgetActionBtn" id="allMatchesBtn" type="button">📋 All Matches</button>
+            <button class="widgetActionBtn" id="mosaicBtn" type="button">🧩 Mosaic</button>
+        </div>
     </div>
 
     <div class="listMenu" id="listMenu">
@@ -1138,6 +1211,8 @@
         const calendarGrid = document.getElementById('calendarGrid');
         const calendarPrevMonth = document.getElementById('calendarPrevMonth');
         const calendarNextMonth = document.getElementById('calendarNextMonth');
+        const filterToggleBtn = document.getElementById('filterToggleBtn');
+        const pageHeader = document.querySelector('header');
         const dateLabel = document.getElementById('dateLabel');
         const teamChips = document.getElementById('teamChips');
         const matches = document.getElementById('matches');
@@ -1146,7 +1221,79 @@
         const nextMatchWidget = document.getElementById('nextMatchWidget');
         const nextMatchTeams = document.getElementById('nextMatchTeams');
         const nextMatchMeta = document.getElementById('nextMatchMeta');
+        let filtersCollapsed = true;
         let calendarMonthCursor = new Date();
+
+        const FILTERS_COOKIE_NAME = 'wcup_filters_v1';
+
+        function setCookie(name, value, days) {
+            const expires = new Date(Date.now() + days * 864e5).toUTCString();
+            document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
+        }
+
+        function getCookie(name) {
+            const prefix = `${name}=`;
+            const parts = document.cookie.split(';');
+            for (const part of parts) {
+                const trimmed = part.trim();
+                if (trimmed.startsWith(prefix)) {
+                    return decodeURIComponent(trimmed.slice(prefix.length));
+                }
+            }
+            return '';
+        }
+
+        function saveFiltersToCookie() {
+            const payload = {
+                selectedDate,
+                selectedTeam,
+                selectedGroup,
+                filtersCollapsed
+            };
+            setCookie(FILTERS_COOKIE_NAME, JSON.stringify(payload), 30);
+        }
+
+        function loadFiltersFromCookie() {
+            const raw = getCookie(FILTERS_COOKIE_NAME);
+            if (!raw) return;
+            try {
+                const saved = JSON.parse(raw);
+                if (saved && typeof saved.selectedDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(saved.selectedDate)) {
+                    selectedDate = saved.selectedDate;
+                }
+                if (saved && typeof saved.selectedTeam === 'string') {
+                    selectedTeam = saved.selectedTeam;
+                }
+                if (saved && typeof saved.selectedGroup === 'string') {
+                    selectedGroup = saved.selectedGroup;
+                }
+                if (saved && typeof saved.filtersCollapsed === 'boolean') {
+                    filtersCollapsed = saved.filtersCollapsed;
+                }
+            } catch {
+                // Ignore invalid cookie payload.
+            }
+        }
+
+        loadFiltersFromCookie();
+
+        function updateFilterToggleLabel() {
+            if (!filterToggleBtn) return;
+            filterToggleBtn.textContent = filtersCollapsed ? 'Show Filters' : 'Hide Filters';
+            filterToggleBtn.setAttribute('aria-expanded', String(!filtersCollapsed));
+        }
+
+        function setFiltersCollapsed(collapsed) {
+            filtersCollapsed = !!collapsed;
+            if (pageHeader) {
+                pageHeader.classList.toggle('filters-collapsed', filtersCollapsed);
+            }
+            if (filtersCollapsed) {
+                closeCalendarCard();
+            }
+            updateFilterToggleLabel();
+            saveFiltersToCookie();
+        }
 
         function isoToday() {
             const d = new Date();
@@ -1219,6 +1366,7 @@
         function setDate(isoDate) {
             selectedDate = isoDate;
             datePicker.value = selectedDate;
+            saveFiltersToCookie();
             render();
         }
 
@@ -1343,11 +1491,11 @@
 
             // Render group tabs
             const groupsSection = document.createElement('div');
-            groupsSection.style.marginBottom = '8px';
+            groupsSection.style.marginBottom = '4px';
             groupsSection.style.display = 'flex';
             groupsSection.style.gap = '6px';
             groupsSection.style.overflowX = 'auto';
-            groupsSection.style.paddingBottom = '4px';
+            groupsSection.style.paddingBottom = '2px';
             groupsSection.style.WebkitOverflowScrolling = 'touch';
 
             const groupAllBtn = document.createElement('button');
@@ -1356,6 +1504,7 @@
             groupAllBtn.onclick = () => {
                 selectedGroup = '';
                 selectedTeam = '';
+                saveFiltersToCookie();
                 render();
             };
             groupsSection.appendChild(groupAllBtn);
@@ -1368,6 +1517,7 @@
                     selectedGroup = group;
                     selectedTeam = '';
                     startGroupLiveRefresh();
+                    saveFiltersToCookie();
                     render();
                 };
                 groupsSection.appendChild(btn);
@@ -1380,7 +1530,7 @@
             teamSection.style.display = 'flex';
             teamSection.style.gap = '8px';
             teamSection.style.overflowX = 'auto';
-            teamSection.style.paddingBottom = '4px';
+            teamSection.style.paddingBottom = '2px';
             teamSection.style.WebkitOverflowScrolling = 'touch';
 
             const allTeamBtn = document.createElement('button');
@@ -1390,6 +1540,7 @@
                 selectedTeam = '';
                 selectedGroup = '';
                 stopGroupLiveRefresh();
+                saveFiltersToCookie();
                 render();
             };
             teamSection.appendChild(allTeamBtn);
@@ -1410,6 +1561,7 @@
                 selectedTeam = team;
                 selectedGroup = '';
                 stopGroupLiveRefresh();
+                saveFiltersToCookie();
                 render();
             };
             return button;
@@ -1526,6 +1678,7 @@
 
                         selectedGroup = group;
                         selectedTeam = '';
+                        saveFiltersToCookie();
                         render();
                     }
                 });
@@ -1805,14 +1958,16 @@
         const nextMatchBtn = document.getElementById('nextMatchBtn');
 
         if (allMatchesBtn) {
-            allMatchesBtn.onclick = () => {
+            allMatchesBtn.onclick = (event) => {
+                event.stopPropagation();
                 listMenu.classList.add('open');
                 renderAllMatchesList();
             };
         }
 
         if (mosaicBtn) {
-            mosaicBtn.onclick = () => {
+            mosaicBtn.onclick = (event) => {
+                event.stopPropagation();
                 floatingMenu.classList.add('open');
                 renderFloatingMenu();
                 refreshFixturesSilent().then(() => {
@@ -1852,6 +2007,7 @@
             previousSelectedDate = '';
             previousSelectedTeam = '';
             previousSelectedGroup = '';
+            saveFiltersToCookie();
             render();
         });
 
@@ -2006,6 +2162,13 @@
         });
         datePicker.onchange = () => setDate(datePicker.value);
 
+        if (filterToggleBtn) {
+            filterToggleBtn.onclick = () => {
+                setFiltersCollapsed(!filtersCollapsed);
+            };
+        }
+        setFiltersCollapsed(filtersCollapsed);
+
         // Remove any old service worker/cache from the previous version.
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(reg => reg.unregister()));
@@ -2018,7 +2181,26 @@
             .then(response => response.json())
             .then(data => {
                 fixtures = data.sort((a, b) => `${a.date} ${a.timeUK}`.localeCompare(`${b.date} ${b.timeUK}`));
-                jumpToTodayOrNextMatchDay();
+                const availableDates = new Set(fixtures.map(match => match.date));
+
+                if (!availableDates.has(selectedDate)) {
+                    const today = isoToday();
+                    if (availableDates.has(today)) {
+                        selectedDate = today;
+                    } else {
+                        selectedDate = [...availableDates][0] || today;
+                    }
+                }
+
+                datePicker.value = selectedDate;
+
+                if (selectedGroup) {
+                    render();
+                    startGroupLiveRefresh();
+                } else {
+                    stopGroupLiveRefresh();
+                    render();
+                }
             })
             .catch(error => {
                 matches.innerHTML = '<div class="empty">Could not load fixtures.json. Make sure it is in the same folder as index.html.</div>';
