@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>World Cup 2026 UK TV Guide</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&display=swap');
+
         * {
             box-sizing: border-box;
         }
 
         body {
             margin: 0;
-            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            font-family: 'Barlow Condensed', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
             background: #f8fafc;
             color: #0f172a;
         }
@@ -21,93 +23,326 @@
             position: sticky;
             top: 0;
             z-index: 10;
-            padding: 14px 12px;
-            background: rgba(248, 250, 252, .97);
-            border-bottom: 1px solid #e2e8f0;
+            background: #003399;
+            color: #fff;
+            padding: 20px 16px;
+            border-bottom: 3px solid #FFD700;
             backdrop-filter: blur(10px);
+            box-shadow: 0 2px 12px rgba(0, 31, 102, 0.35);
+            text-align: center;
         }
 
         h1 {
-            margin: 0 0 4px;
-            font-size: 20px;
+            margin: 0 0 8px;
+            font-size: 28px;
             letter-spacing: -0.03em;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #fff;
+        }
+
+        h1 img {
+            height: 52px;
+            width: auto;
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+                gap: 10px;
+            }
+
+            h1 img {
+                height: 42px;
+            }
         }
 
         .hint {
-            margin: 0 0 12px;
-            color: #64748b;
+            margin: 0 0 14px;
+            color: #dbeafe;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .topNav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+            align-items: center;
+            justify-content: center;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .allMatchesBtn {
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 0 14px;
+            font: inherit;
+            font-weight: 700;
             font-size: 13px;
+            line-height: 1;
+            background: #eff6ff;
+            color: #0b2a6d;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 8px;
+            flex: 1;
+            max-width: 150px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .allMatchesBtn:hover {
+            background: #dbeafe;
+            border-color: #93c5fd;
+        }
+
+        .timeControls {
+            display: flex;
+            gap: 6px;
+            flex: 1;
         }
 
         .dateNav {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 8px;
+            display: flex;
+            gap: 6px;
+            flex: 1;
         }
 
         .dateNav button,
         .today,
         .teamChip {
-            border: 1px solid #e2e8f0;
-            border-radius: 999px;
-            padding: 11px 12px;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            padding: 9px 14px;
             font: inherit;
-            font-weight: 800;
-            background: #fff;
-            color: #0f172a;
+            font-weight: 700;
+            font-size: 13px;
+            background: #eff6ff;
+            color: #0b2a6d;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dateNav button:hover,
+        .today:hover,
+        .teamChip:hover {
+            background: #dbeafe;
+            border-color: #93c5fd;
         }
 
         .dateNav button {
-            background: #0f172a;
-            color: white;
-            border-color: #0f172a;
+            flex: 1;
+            min-width: 0;
         }
 
         .today {
-            width: 100%;
-            margin-bottom: 10px;
+            flex: 1;
+            max-width: 120px;
+            background: #FFD700;
+            border-color: #FFD700;
+            color: #003399;
+            font-weight: 700;
+            line-height: 1;
+            height: 36px;
+            padding: 0 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        .today:hover {
+            background: #FFC700;
         }
 
         .dateLine {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
+            justify-content: center;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .dateLine strong {
-            font-size: 17px;
+            font-size: 16px;
+            min-width: fit-content;
+            color: #fff;
+        }
+
+        .calendarCard {
+            display: none;
+            background: #fff;
+            border: 1px solid #dbe3ef;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 12px 28px rgba(15, 23, 42, 0.15);
+            max-width: 720px;
+            margin: 0 auto 12px;
+        }
+
+        .calendarCard.open {
+            display: block;
+        }
+
+        .calendarTop {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .calendarMonthLabel {
+            font-size: 16px;
+            font-weight: 700;
+            color: #003399;
+        }
+
+        .calendarNavBtn {
+            border: 1px solid #d1d9e6;
+            border-radius: 8px;
+            background: #f8fafc;
+            color: #0f172a;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .calendarWeekdays,
+        .calendarGrid {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 6px;
+        }
+
+        .calendarWeekday {
+            text-align: center;
+            font-size: 11px;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .calendarDayCell {
+            min-height: 62px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background: #fff;
+            padding: 4px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .calendarDayCell:hover {
+            border-color: #003399;
+            box-shadow: 0 3px 10px rgba(0, 51, 153, 0.12);
+        }
+
+        .calendarDayCell.empty {
+            background: #f8fafc;
+            border-style: dashed;
+            cursor: default;
+        }
+
+        .calendarDayCell.active {
+            border-color: #003399;
+            background: #eef4ff;
+        }
+
+        .calendarDayNum {
+            font-size: 12px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 3px;
+        }
+
+        .calendarFlags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px;
+        }
+
+        .calendarFlag {
+            width: 14px;
+            height: 10px;
+            border-radius: 2px;
+            object-fit: cover;
+        }
+
+        .calendarMore {
+            font-size: 10px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .calendarUnknown {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #003399;
+            background: #eef4ff;
+            border: 1px solid #cfe0ff;
+            border-radius: 999px;
+            padding: 1px 5px;
+            margin-top: 2px;
         }
 
         input[type="date"] {
             border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 8px;
-            background: #fff;
+            border-radius: 8px;
+            padding: 8px 10px;
+            background: #f8fafc;
+            color: #0f172a;
             font: inherit;
-            max-width: 145px;
+            font-size: 13px;
+        }
+
+        input[type="date"]::placeholder {
+            color: #94a3b8;
         }
 
         .chips {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             gap: 8px;
-            padding: 2px 0 4px;
+            padding: 0;
+            flex-wrap: wrap;
+            margin: 0;
+            justify-content: center;
         }
 
         .teamChip {
             flex: 0 0 auto;
             display: inline-flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
+            white-space: nowrap;
         }
 
         .teamChip.active {
-            background: #0f172a;
-            color: #fff;
-            border-color: #0f172a;
+            background: #FFD700;
+            border-color: #FFD700;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.35);
+            color: #003399;
         }
 
         .flag {
@@ -137,10 +372,23 @@
         .match {
             background: #fff;
             border: 1px solid #e2e8f0;
-            border-radius: 18px;
-            padding: 14px;
-            margin: 10px 0;
-            box-shadow: 0 8px 18px rgba(15, 23, 42, .05);
+            border-radius: 14px;
+            padding: 16px;
+            margin: 12px 0;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .match:hover {
+            box-shadow: 0 8px 20px rgba(0, 51, 153, 0.12);
+            transform: translateY(-2px);
+            border-color: #003399;
+        }
+
+        .match.finished {
+            border: 2px solid #16a34a;
+            box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.12);
         }
 
         .matchTop {
@@ -151,52 +399,73 @@
         }
 
         .fixture {
-            font-size: 18px;
-            font-weight: 950;
+            font-size: 17px;
+            font-weight: 900;
             letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .time {
-            font-size: 22px;
-            font-weight: 950;
+            font-size: 20px;
+            font-weight: 900;
             white-space: nowrap;
+            color: #003399;
         }
 
         .meta {
             color: #64748b;
-            font-size: 13px;
-            margin-top: 4px;
+            font-size: 12px;
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
         }
 
         .scorePill {
             display: inline-block;
             margin: 0 6px;
-            padding: 2px 8px;
-            border-radius: 999px;
-            background: #0f172a;
-            color: #fff;
-            font-size: 13px;
+            padding: 3px 10px;
+            border-radius: 6px;
+            background: #FFD700;
+            color: #003399;
+            font-size: 12px;
             font-weight: 800;
             vertical-align: middle;
         }
 
         .tv {
             margin-top: 12px;
-            padding: 11px;
-            background: #f1f5f9;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
+            padding: 12px;
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .tv.bc-bbc {
+            background: linear-gradient(135deg, #ffd5ec 0%, #ff9fcb 100%);
+            border-color: #f6a9cf;
+        }
+
+        .tv.bc-itv {
+            background: linear-gradient(135deg, #d7f8ee 0%, #9ee7cf 100%);
+            border-color: #9ddac7;
+        }
+
+        .tv.bc-tbc {
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+            border-color: #cbd5e1;
         }
 
         .tv strong {
-            display: block;
             display: flex;
             align-items: center;
             gap: 8px;
+            font-size: 14px;
         }
 
         .tv strong img {
-            height: 20px;
+            height: 18px;
             width: auto;
         }
 
@@ -215,77 +484,66 @@
             padding: 28px 16px;
         }
 
-        .nextMatchBtn {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            border: none;
-            background: #0f172a;
-            color: #fff;
-            font-size: 20px;
+        .calendarBtn {
+            width: 36px;
+            height: 36px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            background: #fff;
+            color: #003399;
+            font-size: 18px;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3);
-            z-index: 20;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .nextMatchBtn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.4);
+        .calendarBtn:hover {
+            background: #f1f5f9;
         }
 
-        .allMatchesBtn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            border: none;
-            background: #0f172a;
-            color: #fff;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3);
-            z-index: 20;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s, box-shadow 0.2s;
+        #datePicker {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
         }
 
-        .allMatchesBtn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.4);
-        }
+        /* Floating All Matches button styling handled in header .allMatchesBtn */
 
         .floatingMenu {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 50vh;
-            background: #fff;
-            border-top: 2px solid #e2e8f0;
-            box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.1);
-            z-index: 15;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.65);
+            z-index: 40;
             display: none;
-            flex-direction: column;
-            border-radius: 24px 24px 0 0;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
         }
 
         .floatingMenu.open {
             display: flex;
         }
 
+        .floatingMenuPanel {
+            width: min(1200px, 100%);
+            height: min(88vh, 880px);
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid #dbe3ef;
+            box-shadow: 0 18px 46px rgba(2, 6, 23, 0.28);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
         .floatingMenuHeader {
-            padding: 16px;
+            padding: 14px 16px;
             border-bottom: 1px solid #e2e8f0;
             display: flex;
             justify-content: space-between;
@@ -295,42 +553,219 @@
 
         .floatingMenuHeader h2 {
             margin: 0;
-            font-size: 18px;
+            font-size: 20px;
+            color: #0b2a6d;
         }
 
         .floatingMenuHeader button {
-            background: none;
-            border: none;
-            font-size: 24px;
+            background: #f1f5f9;
+            border: 1px solid #d1d9e6;
+            border-radius: 8px;
+            width: 34px;
+            height: 34px;
+            font-size: 20px;
             cursor: pointer;
-            color: #64748b;
+            color: #475569;
         }
 
         .floatingMenuContent {
+            overflow-y: auto;
+            flex: 1;
+            padding: 12px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .mosaicGrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .mosaicLegend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #334155;
+        }
+
+        .mosaicLegendChip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0;
+            font-weight: 600;
+            border: none;
+            background: none;
+            color: #334155;
+        }
+
+        .mosaicLegendChip.bc-bbc {
+            color: #a21caf;
+        }
+
+        .mosaicLegendChip.bc-itv {
+            color: #047857;
+        }
+
+        .mosaicLegendChip.bc-tbc {
+            color: #475569;
+        }
+
+        .mosaicLegendChip::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            border: 1px solid rgba(15, 23, 42, 0.15);
+        }
+
+        .mosaicLegendChip.bc-bbc::before {
+            background: linear-gradient(135deg, #ffd5ec 0%, #ff9fcb 100%);
+            border-color: #f6a9cf;
+        }
+
+        .mosaicLegendChip.bc-itv::before {
+            background: linear-gradient(135deg, #d7f8ee 0%, #9ee7cf 100%);
+            border-color: #9ddac7;
+        }
+
+        .mosaicLegendChip.bc-tbc::before {
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+            border-color: #cbd5e1;
+        }
+
+        .mosaicLegendChip:last-child::before {
+            display: none;
+        }
+
+        .mosaicCard {
+            border: 1px solid #dbe3ef;
+            border-radius: 10px;
+            background: #fff;
+            padding: 8px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .mosaicCard.bc-bbc {
+            background: linear-gradient(135deg, #ffd5ec 0%, #ff9fcb 100%);
+            border-color: #f6a9cf;
+        }
+
+        .mosaicCard.bc-itv {
+            background: linear-gradient(135deg, #d7f8ee 0%, #9ee7cf 100%);
+            border-color: #9ddac7;
+        }
+
+        .mosaicCard.bc-tbc {
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+            border-color: #cbd5e1;
+        }
+
+        .mosaicCard:hover {
+            border-color: #003399;
+            box-shadow: 0 8px 18px rgba(0, 51, 153, 0.14);
+            transform: translateY(-2px);
+        }
+
+        .mosaicCard.finished {
+            border: 2px solid #16a34a;
+            box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.12);
+        }
+
+        .mosaicFlags {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            min-height: 30px;
+            margin-bottom: 6px;
+        }
+
+        .mosaicFlag img {
+            width: 24px;
+            height: 17px;
+            border-radius: 2px;
+            border: 1px solid #dbe3ef;
+        }
+
+        .mosaicVs {
+            font-size: 14px;
+            font-weight: 800;
+            color: #0b2a6d;
+            line-height: 1;
+        }
+
+        .mosaicMeta {
+            font-size: 12px;
+            color: #475569;
+            line-height: 1.2;
+        }
+
+        .listMenu {
+            position: fixed;
+            inset: 0;
+            background: rgba(2, 6, 23, 0.65);
+            z-index: 39;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+        }
+
+        .listMenu.open {
+            display: flex;
+        }
+
+        .listMenuPanel {
+            width: min(980px, 100%);
+            height: min(88vh, 860px);
+            background: #fff;
+            border-radius: 16px;
+            border: 1px solid #dbe3ef;
+            box-shadow: 0 18px 46px rgba(2, 6, 23, 0.28);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .listMenuHeader {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .listMenuHeader h2 {
+            margin: 0;
+            font-size: 20px;
+            color: #0b2a6d;
+        }
+
+        .listMenuHeader button {
+            background: #f1f5f9;
+            border: 1px solid #d1d9e6;
+            border-radius: 8px;
+            width: 34px;
+            height: 34px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #475569;
+        }
+
+        .listMenuContent {
             overflow-y: auto;
             flex: 1;
             padding: 8px 12px;
             -webkit-overflow-scrolling: touch;
         }
 
-        .floatingMatchItem {
-            padding: 12px;
-            border-bottom: 1px solid #f1f5f9;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .floatingMatchItem.clickable {
-            cursor: pointer;
-        }
-
-        .floatingMatchItem.clickable:hover {
-            background: #f8fafc;
-        }
-
-        .floatingDayHeader {
+        .listDayHeader {
             position: sticky;
             top: 0;
             z-index: 1;
@@ -344,15 +779,42 @@
             text-transform: uppercase;
         }
 
-        .floatingMatchItem:last-child {
-            border-bottom: none;
+        .listMatchItem {
+            padding: 12px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
         }
 
-        .floatingMatchInfo {
+        .listMatchItem.bc-bbc {
+            background: linear-gradient(135deg, #ffd5ec 0%, #ff9fcb 100%);
+        }
+
+        .listMatchItem.bc-itv {
+            background: linear-gradient(135deg, #d7f8ee 0%, #9ee7cf 100%);
+        }
+
+        .listMatchItem.bc-tbc {
+            background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
+        }
+
+        .listMatchItem:hover {
+            background: #f8fafc;
+        }
+
+        .listMatchItem.finished {
+            border-left: 4px solid #16a34a;
+            box-shadow: inset 0 0 0 1px rgba(22, 163, 74, 0.2);
+        }
+
+        .listMatchInfo {
             flex: 1;
         }
 
-        .floatingMatchTeams {
+        .listMatchTeams {
             font-weight: 600;
             font-size: 14px;
             margin-bottom: 3px;
@@ -362,12 +824,12 @@
             flex-wrap: wrap;
         }
 
-        .floatingMatchMeta {
+        .listMatchMeta {
             font-size: 12px;
             color: #64748b;
         }
 
-        .floatingMatchBroadcast {
+        .listMatchBroadcast {
             font-size: 12px;
             color: #0f172a;
             font-weight: 500;
@@ -377,6 +839,60 @@
 
         main {
             padding-bottom: 80px;
+        }
+
+        .nextMatchWidget {
+            position: fixed;
+            right: 12px;
+            bottom: 12px;
+            z-index: 35;
+            min-width: 220px;
+            max-width: 300px;
+            background: #fff;
+            border: 1px solid #dbe3ef;
+            border-radius: 12px;
+            box-shadow: 0 12px 26px rgba(2, 6, 23, 0.2);
+            padding: 10px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .nextMatchWidget.show {
+            display: block;
+        }
+
+        .nextMatchTitle {
+            font-size: 11px;
+            font-weight: 700;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 4px;
+        }
+
+        .nextMatchTeams {
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 3px;
+            flex-wrap: wrap;
+        }
+
+        .nextMatchMeta {
+            font-size: 12px;
+            color: #475569;
+        }
+
+        @media (max-width: 600px) {
+            .nextMatchWidget {
+                left: 10px;
+                right: 10px;
+                max-width: none;
+                min-width: 0;
+            }
         }
 
         .standings {
@@ -450,23 +966,27 @@
         }
 
         .backBtn {
-            background: #f1f5f9;
+            background: #f8fafc;
             border: 1px solid #e2e8f0;
             padding: 8px 12px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             color: #0f172a;
-            margin-right: 8px;
+            margin-right: 0;
             display: none;
+            transition: all 0.2s;
         }
 
         .backBtn:hover {
-            background: #e2e8f0;
+            background: #f1f5f9;
+            border-color: #cbd5e1;
         }
 
         .backBtn.visible {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .dateLine {
@@ -479,19 +999,36 @@
 
 <body>
     <header>
-        <h1>World Cup 2026 UK TV Guide</h1>
+        <h1><img src="logo/FWC-26-Logo-for-Countdown.svg" alt="2026 FIFA World Cup" /> World Cup 2026</h1>
         <p class="hint">UK times · UK broadcasters · tap a flag to filter</p>
 
-        <div class="dateNav">
-            <button id="prevDay">← Previous match day</button>
-            <button id="nextDay">Next match day →</button>
+        <div class="topNav">
+            <button class="allMatchesBtn" id="allMatchesBtn" title="Show all matches">📋 All Matches</button>
+            <button class="allMatchesBtn" id="mosaicBtn" title="Show all matches mosaic">🧩 Mosaic</button>
+            <div class="timeControls">
+                <button class="today" id="todayBtn">Today</button>
+                <div class="dateNav">
+                    <button id="prevDay" aria-label="Previous match day" title="Previous match day">←</button>
+                    <button id="nextDay" aria-label="Next match day" title="Next match day">→</button>
+                </div>
+            </div>
         </div>
-        <button class="today" id="todayBtn">Today</button>
 
         <div class="dateLine">
+            <button class="calendarBtn" id="calendarBtn" title="Pick date" aria-label="Pick date">📅</button>
             <button class="backBtn" id="backBtn">← Back</button>
             <strong id="dateLabel"></strong>
             <input id="datePicker" type="date" />
+        </div>
+
+        <div class="calendarCard" id="calendarCard" aria-hidden="true">
+            <div class="calendarTop">
+                <button class="calendarNavBtn" id="calendarPrevMonth" aria-label="Previous month">‹</button>
+                <div class="calendarMonthLabel" id="calendarMonthLabel"></div>
+                <button class="calendarNavBtn" id="calendarNextMonth" aria-label="Next month">›</button>
+            </div>
+            <div class="calendarWeekdays" id="calendarWeekdays"></div>
+            <div class="calendarGrid" id="calendarGrid"></div>
         </div>
 
         <div class="chips" id="teamChips"></div>
@@ -502,19 +1039,35 @@
         <section id="matches"></section>
     </main>
 
-    <button class="nextMatchBtn" id="nextMatchBtn" title="Scroll to next match">⏭️</button>
-    <button class="allMatchesBtn" id="allMatchesBtn" title="Show all matches">📋</button>
-    <div class="floatingMenu" id="floatingMenu">
-        <div class="floatingMenuHeader">
-            <h2>All Matches</h2>
-            <button id="closeMenuBtn">✕</button>
+    <div class="nextMatchWidget" id="nextMatchWidget" title="Go to next match">
+        <div class="nextMatchTitle">Next Match</div>
+        <div class="nextMatchTeams" id="nextMatchTeams"></div>
+        <div class="nextMatchMeta" id="nextMatchMeta"></div>
+    </div>
+
+    <div class="listMenu" id="listMenu">
+        <div class="listMenuPanel">
+            <div class="listMenuHeader">
+                <h2>All Matches</h2>
+                <button id="closeListMenuBtn">✕</button>
+            </div>
+            <div class="listMenuContent" id="listMenuContent"></div>
         </div>
-        <div class="floatingMenuContent" id="floatingMenuContent"></div>
+    </div>
+
+    <div class="floatingMenu" id="floatingMenu">
+        <div class="floatingMenuPanel">
+            <div class="floatingMenuHeader">
+                <h2>All Matches Mosaic</h2>
+                <button id="closeMenuBtn">✕</button>
+            </div>
+            <div class="floatingMenuContent" id="floatingMenuContent"></div>
+        </div>
     </div>
 
     <script>
         // Edit this list to the countries you follow.
-        const FOLLOWED_TEAMS = ['England', 'Scotland', 'Brazil', 'Argentina', 'France', 'Spain', 'Portugal', 'USA'];
+        const FOLLOWED_TEAMS = ['England', 'Scotland', 'Brazil', 'Argentina', 'France', 'Spain', 'Portugal', 'Germany'];
 
         const FLAGS = {
             'Algeria': '<img src="flags/algeria.svg" alt="Algeria" class="flag-img"/>',
@@ -578,11 +1131,22 @@
         let previousSelectedGroup = '';
 
         const datePicker = document.getElementById('datePicker');
+        const calendarBtn = document.getElementById('calendarBtn');
+        const calendarCard = document.getElementById('calendarCard');
+        const calendarMonthLabel = document.getElementById('calendarMonthLabel');
+        const calendarWeekdays = document.getElementById('calendarWeekdays');
+        const calendarGrid = document.getElementById('calendarGrid');
+        const calendarPrevMonth = document.getElementById('calendarPrevMonth');
+        const calendarNextMonth = document.getElementById('calendarNextMonth');
         const dateLabel = document.getElementById('dateLabel');
         const teamChips = document.getElementById('teamChips');
         const matches = document.getElementById('matches');
         const summary = document.getElementById('summary');
         const backBtn = document.getElementById('backBtn');
+        const nextMatchWidget = document.getElementById('nextMatchWidget');
+        const nextMatchTeams = document.getElementById('nextMatchTeams');
+        const nextMatchMeta = document.getElementById('nextMatchMeta');
+        let calendarMonthCursor = new Date();
 
         function isoToday() {
             const d = new Date();
@@ -632,6 +1196,16 @@
             });
         }
 
+        function shortWeekday(match) {
+            if (typeof match.day === 'string' && match.day.length >= 3) {
+                return match.day.slice(0, 3);
+            }
+            if (match.date) {
+                return new Date(`${match.date}T12:00:00`).toLocaleDateString('en-GB', { weekday: 'short' });
+            }
+            return '';
+        }
+
         function getSortedUniqueDates() {
             return [...new Set(fixtures.map(match => match.date))].sort();
         }
@@ -646,6 +1220,119 @@
             selectedDate = isoDate;
             datePicker.value = selectedDate;
             render();
+        }
+
+        function getDayTeams(isoDate) {
+            const teams = new Set();
+            fixtures.filter(match => match.date === isoDate).forEach(match => {
+                (match.teams || []).forEach(team => teams.add(team));
+            });
+            return Array.from(teams);
+        }
+
+        function getDayCalendarData(isoDate) {
+            const dayMatches = fixtures.filter(match => match.date === isoDate);
+            const knownTeams = new Set();
+            let unknownMatches = 0;
+
+            dayMatches.forEach(match => {
+                const teams = match.teams || [];
+                const hasUnknown = teams.some(team => !FLAGS[team]);
+                if (hasUnknown) {
+                    unknownMatches++;
+                }
+                teams.forEach(team => {
+                    if (FLAGS[team]) {
+                        knownTeams.add(team);
+                    }
+                });
+            });
+
+            return {
+                knownTeams: Array.from(knownTeams),
+                unknownMatches
+            };
+        }
+
+        function getFlagImageSrc(flagHtml) {
+            if (!flagHtml) return '';
+            const m = flagHtml.match(/src="([^"]+)"/);
+            return m ? m[1] : '';
+        }
+
+        function renderCalendarCard() {
+            const year = calendarMonthCursor.getFullYear();
+            const month = calendarMonthCursor.getMonth();
+            const firstOfMonth = new Date(year, month, 1);
+            const firstWeekday = (firstOfMonth.getDay() + 6) % 7;
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            calendarMonthLabel.textContent = firstOfMonth.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+
+            const weekdayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            calendarWeekdays.innerHTML = weekdayNames.map(day => `<div class="calendarWeekday">${day}</div>`).join('');
+
+            const cells = [];
+            for (let i = 0; i < firstWeekday; i++) {
+                cells.push('<div class="calendarDayCell empty" aria-hidden="true"></div>');
+            }
+
+            for (let d = 1; d <= daysInMonth; d++) {
+                const isoDate = toIsoDate(new Date(year, month, d));
+                const dayData = getDayCalendarData(isoDate);
+                const teams = dayData.knownTeams;
+                const isActive = isoDate === selectedDate;
+                const flagIcons = teams.map(team => {
+                    const src = getFlagImageSrc(FLAGS[team]);
+                    if (!src) return '';
+                    return `<img class="calendarFlag" src="${src}" alt="${team}" title="${team}"/>`;
+                }).join('');
+                const unknownBadge = dayData.unknownMatches > 0
+                    ? `<div class="calendarUnknown" title="${dayData.unknownMatches} match(es) with teams to be confirmed">🏆 TBD ${dayData.unknownMatches}</div>`
+                    : '';
+                cells.push(`
+                    <button class="calendarDayCell${isActive ? ' active' : ''}" data-date="${isoDate}" type="button">
+                        <div class="calendarDayNum">${d}</div>
+                        <div class="calendarFlags">${flagIcons}</div>
+                        ${unknownBadge}
+                    </button>
+                `);
+            }
+
+            calendarGrid.innerHTML = cells.join('');
+
+            calendarGrid.querySelectorAll('.calendarDayCell[data-date]').forEach(cell => {
+                cell.onclick = () => {
+                    const isoDate = cell.dataset.date;
+                    if (!isoDate) return;
+                    selectedTeam = '';
+                    selectedGroup = '';
+                    stopGroupLiveRefresh();
+                    setDate(isoDate);
+                    closeCalendarCard();
+                };
+            });
+        }
+
+        function openCalendarCard() {
+            const selected = new Date(`${selectedDate}T12:00:00`);
+            calendarMonthCursor = new Date(selected.getFullYear(), selected.getMonth(), 1);
+            renderCalendarCard();
+            calendarCard.classList.add('open');
+            calendarCard.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeCalendarCard() {
+            calendarCard.classList.remove('open');
+            calendarCard.setAttribute('aria-hidden', 'true');
+        }
+
+        function toggleCalendarCard() {
+            if (calendarCard.classList.contains('open')) {
+                closeCalendarCard();
+            } else {
+                openCalendarCard();
+            }
         }
 
         function renderChips() {
@@ -779,6 +1466,7 @@
             dateLabel.textContent = `${selectedDate === isoToday() ? 'Today · ' : ''}${prettyDate(selectedDate)}`;
             summary.innerHTML = '';
             renderChips();
+            renderNextMatchWidget();
 
             const rows = getVisibleMatches();
 
@@ -807,17 +1495,17 @@
             }
 
             htmlContent += rows.map(match => `
-        <article class="match" data-group="${match.group}" style="cursor: pointer;">
+        <article class="match ${isMatchFinished(match) ? 'finished' : ''}" data-group="${match.group}" data-matchno="${match.matchNo || ''}" style="cursor: pointer;">
           <div class="matchTop">
             <div>
               <div class="fixture">
                                 ${renderTeam(match.teams?.[0])} <span class="scorePill">${getMatchScoreText(match)}</span> ${renderTeam(match.teams?.[1])}
               </div>
-                            <div class="meta">${getDayNumberLabel(match.date)} · ${match.day} ${match.date ? new Date(match.date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }) : ''} · ${match.round}${match.group ? ` · Group ${match.group}` : ''}</div>
+                            <div class="meta">${getDayNumberLabel(match.date)} · ${shortWeekday(match)} ${match.date ? new Date(match.date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }) : ''} · ${match.round}${match.group ? ` · Group ${match.group}` : ''}</div>
             </div>
             <div class="time">${match.timeUK}</div>
           </div>
-          <div class="tv">
+                    <div class="tv ${getBroadcasterClass(match.broadcast)}">
             <strong>${getBroadcasterIcon(match.broadcast)} ${match.broadcast || 'TBC'}</strong>
             ${match.streaming ? `<div class="stream">${match.streaming}</div>` : ''}
           </div>
@@ -980,6 +1668,72 @@
             return `${score.home}-${score.away}`;
         }
 
+        function isMatchFinished(match) {
+            return !!getNumericScore(match);
+        }
+
+        function getMatchDateTime(match) {
+            if (!match || !match.date) return new Date(0);
+            const time = typeof match.timeUK === 'string' && /^\d{1,2}:\d{2}$/.test(match.timeUK)
+                ? match.timeUK
+                : '12:00';
+            return new Date(`${match.date}T${time}:00`);
+        }
+
+        function getNextUpcomingMatch() {
+            const now = new Date();
+            return fixtures
+                .slice()
+                .sort((a, b) => getMatchDateTime(a) - getMatchDateTime(b))
+                .find(match => getMatchDateTime(match) >= now) || null;
+        }
+
+        function goToMatch(match) {
+            if (!match) return;
+
+            if (match.date) {
+                selectedDate = match.date;
+                datePicker.value = selectedDate;
+            }
+
+            selectedTeam = '';
+            if (match.group) {
+                selectedGroup = match.group;
+                startGroupLiveRefresh();
+            } else {
+                selectedGroup = '';
+                stopGroupLiveRefresh();
+            }
+
+            render();
+
+            setTimeout(() => {
+                const selector = `.match[data-matchno="${match.matchNo || ''}"]`;
+                const target = document.querySelector(selector);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 80);
+        }
+
+        function renderNextMatchWidget() {
+            const next = getNextUpcomingMatch();
+            if (!next) {
+                nextMatchWidget.classList.remove('show');
+                return;
+            }
+
+            const left = next.teams?.[0] || 'TBD';
+            const right = next.teams?.[1] || 'TBD';
+            nextMatchTeams.innerHTML = `${renderTeamShort(left)} <span class="scorePill">v</span> ${renderTeamShort(right)}`;
+            const dateText = next.date
+                ? new Date(next.date + 'T00:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })
+                : '';
+            nextMatchMeta.textContent = `${dateText} · ${next.timeUK || ''}${next.group ? ` · Group ${next.group}` : ''}`;
+            nextMatchWidget.onclick = () => goToMatch(next);
+            nextMatchWidget.classList.add('show');
+        }
+
         function stopGroupLiveRefresh() {
             if (liveRefreshTimer) {
                 clearInterval(liveRefreshTimer);
@@ -1009,6 +1763,17 @@
                 });
         }
 
+        function refreshFixturesSilent() {
+            return fetch(`fixtures.json?cacheBust=${Date.now()}`, { cache: 'no-store' })
+                .then(response => response.json())
+                .then(data => {
+                    fixtures = data.sort((a, b) => `${a.date} ${a.timeUK}`.localeCompare(`${b.date} ${b.timeUK}`));
+                })
+                .catch(() => {
+                    // Keep current data if refresh fails.
+                });
+        }
+
         function ensureFloatingMenuElements() {
             let menu = document.getElementById('floatingMenu');
             if (!menu) {
@@ -1016,11 +1781,13 @@
                 menu.id = 'floatingMenu';
                 menu.className = 'floatingMenu';
                 menu.innerHTML = `
-                    <div class="floatingMenuHeader">
-                        <h2>All Matches</h2>
-                        <button id="closeMenuBtn">✕</button>
+                    <div class="floatingMenuPanel">
+                        <div class="floatingMenuHeader">
+                            <h2>All Matches Mosaic</h2>
+                            <button id="closeMenuBtn">✕</button>
+                        </div>
+                        <div class="floatingMenuContent" id="floatingMenuContent"></div>
                     </div>
-                    <div class="floatingMenuContent" id="floatingMenuContent"></div>
                 `;
                 document.body.appendChild(menu);
             }
@@ -1030,13 +1797,27 @@
         const floatingMenu = ensureFloatingMenuElements();
         const floatingMenuContent = document.getElementById('floatingMenuContent');
         const allMatchesBtn = document.getElementById('allMatchesBtn');
+        const mosaicBtn = document.getElementById('mosaicBtn');
         const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const listMenu = document.getElementById('listMenu');
+        const listMenuContent = document.getElementById('listMenuContent');
+        const closeListMenuBtn = document.getElementById('closeListMenuBtn');
         const nextMatchBtn = document.getElementById('nextMatchBtn');
 
         if (allMatchesBtn) {
             allMatchesBtn.onclick = () => {
+                listMenu.classList.add('open');
+                renderAllMatchesList();
+            };
+        }
+
+        if (mosaicBtn) {
+            mosaicBtn.onclick = () => {
                 floatingMenu.classList.add('open');
                 renderFloatingMenu();
+                refreshFixturesSilent().then(() => {
+                    renderFloatingMenu();
+                });
             };
         }
 
@@ -1045,6 +1826,24 @@
                 floatingMenu.classList.remove('open');
             };
         }
+
+        floatingMenu.addEventListener('click', (event) => {
+            if (event.target === floatingMenu) {
+                floatingMenu.classList.remove('open');
+            }
+        });
+
+        if (closeListMenuBtn) {
+            closeListMenuBtn.onclick = () => {
+                listMenu.classList.remove('open');
+            };
+        }
+
+        listMenu.addEventListener('click', (event) => {
+            if (event.target === listMenu) {
+                listMenu.classList.remove('open');
+            }
+        });
 
         backBtn.addEventListener('click', () => {
             selectedDate = previousSelectedDate;
@@ -1071,10 +1870,9 @@
             };
         }
 
-        function renderFloatingMenu() {
-            const allMatches = fixtures;
-            if (!allMatches.length) {
-                floatingMenuContent.innerHTML = '<div class="empty">No matches available</div>';
+        function renderAllMatchesList() {
+            if (!fixtures.length) {
+                listMenuContent.innerHTML = '<div class="empty">No matches available</div>';
                 return;
             }
 
@@ -1082,47 +1880,86 @@
             let html = '';
 
             dates.forEach(date => {
-                const dayMatches = allMatches.filter(match => match.date === date);
-                if (!dayMatches.length) {
-                    return;
-                }
+                const dayMatches = fixtures.filter(match => match.date === date);
+                if (!dayMatches.length) return;
 
                 const headingDate = new Date(`${date}T12:00:00`).toLocaleDateString('en-GB', {
                     weekday: 'long', day: 'numeric', month: 'long'
                 });
 
-                html += `<div class="floatingDayHeader">${getDayNumberLabel(date)} · ${headingDate}</div>`;
+                html += `<div class="listDayHeader">${getDayNumberLabel(date)} · ${headingDate}</div>`;
                 html += dayMatches.map(match => {
                     const formattedDate = match.date ? new Date(match.date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }) : '';
                     return `
-                    <div class="floatingMatchItem clickable" data-group="${match.group || ''}" data-date="${match.date || ''}">
-                        <div class="floatingMatchInfo">
-                            <div class="floatingMatchTeams">${renderTeamShort(match.teams?.[0])} <span class="scorePill">${getMatchScoreText(match)}</span> ${renderTeamShort(match.teams?.[1])}</div>
-                            <div class="floatingMatchMeta">${match.day} ${formattedDate} · ${match.timeUK}${match.group ? ` · Group ${match.group}` : ''} · ${match.round}</div>
+                    <div class="listMatchItem ${getBroadcasterClass(match.broadcast)} ${isMatchFinished(match) ? 'finished' : ''}" data-matchno="${match.matchNo || ''}" data-group="${match.group || ''}" data-date="${match.date || ''}">
+                        <div class="listMatchInfo">
+                            <div class="listMatchTeams">${renderTeamShort(match.teams?.[0])} <span class="scorePill">${getMatchScoreText(match)}</span> ${renderTeamShort(match.teams?.[1])}</div>
+                            <div class="listMatchMeta">${shortWeekday(match)} ${formattedDate} · ${match.timeUK}${match.group ? ` · Group ${match.group}` : ''} · ${match.round}</div>
                         </div>
-                        <div class="floatingMatchBroadcast">${getBroadcasterIcon(match.broadcast)} ${match.broadcast || 'TBC'}</div>
+                        <div class="listMatchBroadcast">${getBroadcasterIcon(match.broadcast)} ${match.broadcast || 'TBC'}</div>
                     </div>
                 `;
                 }).join('');
             });
 
-            floatingMenuContent.innerHTML = html;
+            listMenuContent.innerHTML = html;
 
-            floatingMenuContent.querySelectorAll('.floatingMatchItem.clickable').forEach(item => {
+            listMenuContent.querySelectorAll('.listMatchItem').forEach(item => {
                 item.onclick = () => {
-                    const group = item.dataset.group;
-                    const date = item.dataset.date;
-                    if (group) {
-                        selectedGroup = group;
-                        selectedTeam = '';
-                        if (date) {
-                            selectedDate = date;
-                            datePicker.value = selectedDate;
-                        }
-                        startGroupLiveRefresh();
-                        floatingMenu.classList.remove('open');
-                        render();
-                    }
+                    const date = item.dataset.date || '';
+                    const matchNo = item.dataset.matchno || '';
+                    listMenu.classList.remove('open');
+                    const match = fixtures.find(m => String(m.matchNo || '') === String(matchNo || '') && (!date || m.date === date));
+                    goToMatch(match);
+                };
+            });
+        }
+
+        function renderFloatingMenu() {
+            const allMatches = fixtures;
+            if (!allMatches.length) {
+                floatingMenuContent.innerHTML = '<div class="empty">No matches available</div>';
+                return;
+            }
+
+            const sortedMatches = [...allMatches].sort((a, b) => `${a.date} ${a.timeUK}`.localeCompare(`${b.date} ${b.timeUK}`));
+            const tiles = sortedMatches.map(match => {
+                const teamA = match.teams?.[0] || 'TBD';
+                const teamB = match.teams?.[1] || 'TBD';
+                const flagA = FLAGS[teamA] || '<span class="mosaicVs">TBD</span>';
+                const flagB = FLAGS[teamB] || '<span class="mosaicVs">TBD</span>';
+                const centerLabel = getMatchScoreText(match) === 'vs' ? 'v' : getMatchScoreText(match);
+                const when = `${shortWeekday(match)} ${match.date ? new Date(match.date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : ''}`.trim();
+                const bcClass = getBroadcasterClass(match.broadcast);
+                return `
+                    <button class="mosaicCard ${bcClass} ${isMatchFinished(match) ? 'finished' : ''}" data-matchno="${match.matchNo || ''}" data-date="${match.date || ''}" data-group="${match.group || ''}" type="button">
+                        <div class="mosaicFlags">
+                            <span class="mosaicFlag">${flagA}</span>
+                            <span class="mosaicVs">${centerLabel}</span>
+                            <span class="mosaicFlag">${flagB}</span>
+                        </div>
+                        <div class="mosaicMeta">${when} · ${match.timeUK || ''}</div>
+                    </button>
+                `;
+            }).join('');
+
+            floatingMenuContent.innerHTML = `
+                <div class="mosaicLegend">
+                    <span class="mosaicLegendChip bc-bbc">BBC iPlayer</span>
+                    <span class="mosaicLegendChip bc-itv">ITV/STV</span>
+                    <span class="mosaicLegendChip bc-tbc">TBC</span>
+                    <span class="mosaicLegendChip">Score shown when finished</span>
+                </div>
+                <div class="mosaicGrid">${tiles}</div>
+            `;
+
+            floatingMenuContent.querySelectorAll('.mosaicCard').forEach(item => {
+                item.onclick = () => {
+                    const date = item.dataset.date || '';
+                    const matchNo = item.dataset.matchno || '';
+                    floatingMenu.classList.remove('open');
+                    const match = fixtures.find(m => String(m.matchNo || '') === String(matchNo || '') && (!date || m.date === date));
+                    goToMatch(match);
                 };
             });
         }
@@ -1141,9 +1978,32 @@
             return '';
         }
 
+        function getBroadcasterClass(broadcast) {
+            if (!broadcast) return 'bc-tbc';
+            const bc = broadcast.toUpperCase();
+            if (bc.includes('BBC')) return 'bc-bbc';
+            if (bc.includes('ITV') || bc.includes('STV')) return 'bc-itv';
+            return 'bc-tbc';
+        }
+
         document.getElementById('prevDay').onclick = () => jumpToMatchDay(-1);
         document.getElementById('nextDay').onclick = () => jumpToMatchDay(1);
         document.getElementById('todayBtn').onclick = () => jumpToTodayOrNextMatchDay();
+        calendarBtn.onclick = () => toggleCalendarCard();
+        calendarPrevMonth.onclick = () => {
+            calendarMonthCursor = new Date(calendarMonthCursor.getFullYear(), calendarMonthCursor.getMonth() - 1, 1);
+            renderCalendarCard();
+        };
+        calendarNextMonth.onclick = () => {
+            calendarMonthCursor = new Date(calendarMonthCursor.getFullYear(), calendarMonthCursor.getMonth() + 1, 1);
+            renderCalendarCard();
+        };
+        document.addEventListener('click', (event) => {
+            const target = event.target;
+            if (!calendarCard.classList.contains('open')) return;
+            if (calendarCard.contains(target) || calendarBtn.contains(target)) return;
+            closeCalendarCard();
+        });
         datePicker.onchange = () => setDate(datePicker.value);
 
         // Remove any old service worker/cache from the previous version.

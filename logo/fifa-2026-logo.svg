@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200">
+  <defs>
+    <style>
+      .logo-text { font-family: Arial, sans-serif; font-weight: 900; text-anchor: middle; }
+      .year { font-size: 80px; fill: #003399; }
+      .world-cup { font-size: 28px; fill: #FFD700; letter-spacing: 2px; }
+    </style>
+  </defs>
+  <rect width="400" height="200" fill="#fff" stroke="#003399" stroke-width="2"/>
+  <text x="200" y="100" class="logo-text year">2026</text>
+  <text x="200" y="145" class="logo-text world-cup">WORLD CUP</text>
+  <circle cx="200" cy="170" r="3" fill="#FFD700"/>
+  <circle cx="185" cy="170" r="3" fill="#FFD700"/>
+  <circle cx="215" cy="170" r="3" fill="#FFD700"/>
+</svg>
