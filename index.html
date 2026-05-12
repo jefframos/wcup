@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>World Cup 2026 UK TV Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            padding: 14px 12px;
+            background: rgba(248, 250, 252, .97);
+            border-bottom: 1px solid #e2e8f0;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            margin: 0 0 4px;
+            font-size: 20px;
+            letter-spacing: -0.03em;
+        }
+
+        .hint {
+            margin: 0 0 12px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .dateNav {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .dateNav button,
+        .today,
+        .teamChip {
+            border: 1px solid #e2e8f0;
+            border-radius: 999px;
+            padding: 11px 12px;
+            font: inherit;
+            font-weight: 800;
+            background: #fff;
+            color: #0f172a;
+        }
+
+        .dateNav button {
+            background: #0f172a;
+            color: white;
+            border-color: #0f172a;
+        }
+
+        .today {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .dateLine {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .dateLine strong {
+            font-size: 17px;
+        }
+
+        input[type="date"] {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 8px;
+            background: #fff;
+            font: inherit;
+            max-width: 145px;
+        }
+
+        .chips {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 2px 0 4px;
+        }
+
+        .teamChip {
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .teamChip.active {
+            background: #0f172a;
+            color: #fff;
+            border-color: #0f172a;
+        }
+
+        .flag {
+            font-size: 22px;
+            line-height: 1;
+        }
+
+        .flag-img {
+            width: 22px;
+            height: 16px;
+            vertical-align: middle;
+            margin-right: 2px;
+        }
+
+        main {
+            padding: 12px;
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .summary {
+            color: #64748b;
+            font-size: 14px;
+            margin: 0 0 10px;
+        }
+
+        .match {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 14px;
+            margin: 10px 0;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, .05);
+        }
+
+        .matchTop {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .fixture {
+            font-size: 18px;
+            font-weight: 950;
+            letter-spacing: -0.02em;
+        }
+
+        .time {
+            font-size: 22px;
+            font-weight: 950;
+            white-space: nowrap;
+        }
+
+        .meta {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .tv {
+            margin-top: 12px;
+            padding: 11px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+        }
+
+        .tv strong {
+            display: block;
+        }
+
+        .stream {
+            color: #64748b;
+            font-size: 13px;
+            margin-top: 3px;
+        }
+
+        .empty {
+            text-align: center;
+            color: #64748b;
+            background: #fff;
+            border: 1px dashed #cbd5e1;
+            border-radius: 18px;
+            padding: 28px 16px;
+        }
+
+        .nextMatchBtn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: none;
+            background: #0f172a;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3);
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .nextMatchBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.4);
+        }
+
+        .allMatchesBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: none;
+            background: #0f172a;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.3);
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .allMatchesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.4);
+        }
+
+        .floatingMenu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50vh;
+            background: #fff;
+            border-top: 2px solid #e2e8f0;
+            box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.1);
+            z-index: 15;
+            display: none;
+            flex-direction: column;
+            border-radius: 24px 24px 0 0;
+        }
+
+        .floatingMenu.open {
+            display: flex;
+        }
+
+        .floatingMenuHeader {
+            padding: 16px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .floatingMenuHeader h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .floatingMenuHeader button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .floatingMenuContent {
+            overflow-y: auto;
+            flex: 1;
+            padding: 8px 12px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .floatingMatchItem {
+            padding: 12px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .floatingMatchItem:last-child {
+            border-bottom: none;
+        }
+
+        .floatingMatchInfo {
+            flex: 1;
+        }
+
+        .floatingMatchTeams {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .floatingMatchMeta {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .floatingMatchBroadcast {
+            font-size: 12px;
+            color: #0f172a;
+            font-weight: 500;
+            text-align: right;
+            min-width: 80px;
+        }
+
+        main {
+            padding-bottom: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>World Cup 2026 UK TV Guide</h1>
+        <p class="hint">UK times · UK broadcasters · tap a flag to filter</p>
+
+        <div class="dateNav">
+            <button id="prevDay">← Previous match day</button>
+            <button id="nextDay">Next match day →</button>
+        </div>
+        <button class="today" id="todayBtn">Today</button>
+
+        <div class="dateLine">
+            <strong id="dateLabel"></strong>
+            <input id="datePicker" type="date" />
+        </div>
+
+        <div class="chips" id="teamChips"></div>
+    </header>
+
+    <main>
+        <p class="summary" id="summary"></p>
+        <section id="matches"></section>
+    </main>
+
+    <button class="nextMatchBtn" id="nextMatchBtn" title="Scroll to next match">⏭️</button>
+    <button class="allMatchesBtn" id="allMatchesBtn" title="Show all matches">📋</button>
+
+    <div class="floatingMenu" id="floatingMenu">
+        <div class="floatingMenuHeader">
+            <h2>All Matches</h2>
+            <button id="closeMenuBtn">✕</button>
+        </div>
+        <div class="floatingMenuContent" id="floatingMenuContent"></div>
+    </div>
+
+    <script>
+        // Edit this list to the countries you follow.
+        const FOLLOWED_TEAMS = ['England', 'Scotland', 'Brazil', 'Argentina', 'France', 'Spain', 'Portugal', 'USA'];
+
+        const FLAGS = {
+            'Algeria': '<img src="flags/algeria.svg" alt="Algeria" class="flag-img"/>',
+            'Argentina': '<img src="flags/argentina.svg" alt="Argentina" class="flag-img"/>',
+            'Australia': '<img src="flags/australia.svg" alt="Australia" class="flag-img"/>',
+            'Austria': '<img src="flags/austria.svg" alt="Austria" class="flag-img"/>',
+            'Belgium': '<img src="flags/belgium.svg" alt="Belgium" class="flag-img"/>',
+            'Bosnia-Herzegovina': '<img src="flags/bosnia-herzegovina.svg" alt="Bosnia-Herzegovina" class="flag-img"/>',
+            'Brazil': '<img src="flags/brazil.svg" alt="Brazil" class="flag-img"/>',
+            'Canada': '<img src="flags/canada.svg" alt="Canada" class="flag-img"/>',
+            'Cape Verde': '<img src="flags/capeverde.svg" alt="Cape Verde" class="flag-img"/>',
+            'Colombia': '<img src="flags/colombia.svg" alt="Colombia" class="flag-img"/>',
+            'Croatia': '<img src="flags/croatia.svg" alt="Croatia" class="flag-img"/>',
+            'Curacao': '<img src="flags/curacao.svg" alt="Curacao" class="flag-img"/>',
+            'Czech Republic': '<img src="flags/czechrepublic.svg" alt="Czech Republic" class="flag-img"/>',
+            'DR Congo': '<img src="flags/drcongo.svg" alt="DR Congo" class="flag-img"/>',
+            'Ecuador': '<img src="flags/ecuador.svg" alt="Ecuador" class="flag-img"/>',
+            'Egypt': '<img src="flags/egypt.svg" alt="Egypt" class="flag-img"/>',
+            'England': '<img src="flags/england.svg" alt="England" class="flag-img"/>',
+            'France': '<img src="flags/france.svg" alt="France" class="flag-img"/>',
+            'Germany': '<img src="flags/germany.svg" alt="Germany" class="flag-img"/>',
+            'Ghana': '<img src="flags/ghana.svg" alt="Ghana" class="flag-img"/>',
+            'Haiti': '<img src="flags/haiti.svg" alt="Haiti" class="flag-img"/>',
+            'Iran': '<img src="flags/iran.svg" alt="Iran" class="flag-img"/>',
+            'Iraq': '<img src="flags/iraq.svg" alt="Iraq" class="flag-img"/>',
+            'Ivory Coast': '<img src="flags/ivorycoast.svg" alt="Ivory Coast" class="flag-img"/>',
+            'Japan': '<img src="flags/japan.svg" alt="Japan" class="flag-img"/>',
+            'Jordan': '<img src="flags/jordan.svg" alt="Jordan" class="flag-img"/>',
+            'Mexico': '<img src="flags/mexico.svg" alt="Mexico" class="flag-img"/>',
+            'Morocco': '<img src="flags/morocco.svg" alt="Morocco" class="flag-img"/>',
+            'Netherlands': '<img src="flags/netherlands.svg" alt="Netherlands" class="flag-img"/>',
+            'New Zealand': '<img src="flags/newzealand.svg" alt="New Zealand" class="flag-img"/>',
+            'Norway': '<img src="flags/norway.svg" alt="Norway" class="flag-img"/>',
+            'Panama': '<img src="flags/panama.svg" alt="Panama" class="flag-img"/>',
+            'Paraguay': '<img src="flags/paraguay.svg" alt="Paraguay" class="flag-img"/>',
+            'Portugal': '<img src="flags/portugal.svg" alt="Portugal" class="flag-img"/>',
+            'Qatar': '<img src="flags/qatar.svg" alt="Qatar" class="flag-img"/>',
+            'Saudi Arabia': '<img src="flags/saudiarabia.svg" alt="Saudi Arabia" class="flag-img"/>',
+            'Scotland': '<img src="flags/scotland.svg" alt="Scotland" class="flag-img"/>',
+            'Senegal': '<img src="flags/senegal.svg" alt="Senegal" class="flag-img"/>',
+            'South Africa': '<img src="flags/southafrica.svg" alt="South Africa" class="flag-img"/>',
+            'South Korea': '<img src="flags/southkorea.svg" alt="South Korea" class="flag-img"/>',
+            'Spain': '<img src="flags/spain.svg" alt="Spain" class="flag-img"/>',
+            'Sweden': '<img src="flags/sweden.svg" alt="Sweden" class="flag-img"/>',
+            'Switzerland': '<img src="flags/switzerland.svg" alt="Switzerland" class="flag-img"/>',
+            'Tunisia': '<img src="flags/tunisia.svg" alt="Tunisia" class="flag-img"/>',
+            'Turkey': '<img src="flags/turkey.svg" alt="Turkey" class="flag-img"/>',
+            'USA': '<img src="flags/usa.svg" alt="USA" class="flag-img"/>',
+            'Uruguay': '<img src="flags/uruguay.svg" alt="Uruguay" class="flag-img"/>',
+            'Uzbekistan': '<img src="flags/uzbekistan.svg" alt="Uzbekistan" class="flag-img"/>'
+        };
+
+
+        let fixtures = [];
+        let selectedDate = isoToday();
+        let selectedTeam = '';
+        let selectedGroup = '';
+
+        const datePicker = document.getElementById('datePicker');
+        const dateLabel = document.getElementById('dateLabel');
+        const teamChips = document.getElementById('teamChips');
+        const matches = document.getElementById('matches');
+        const summary = document.getElementById('summary');
+
+        function isoToday() {
+            const d = new Date();
+            return toIsoDate(d);
+        }
+
+        function toIsoDate(d) {
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        }
+
+        function addDays(isoDate, days) {
+            const d = new Date(`${isoDate}T12:00:00`);
+            d.setDate(d.getDate() + days);
+            return toIsoDate(d);
+        }
+
+        function getMatchDatesForCurrentFilter() {
+            const dates = fixtures
+                .filter(match => !selectedTeam || (match.teams || []).includes(selectedTeam))
+                .map(match => match.date);
+            return [...new Set(dates)].sort();
+        }
+
+        function jumpToMatchDay(direction) {
+            const matchDates = getMatchDatesForCurrentFilter();
+            if (!matchDates.length) return;
+
+            let target;
+            if (direction > 0) {
+                target = matchDates.find(date => date > selectedDate) || matchDates[0];
+            } else {
+                target = [...matchDates].reverse().find(date => date < selectedDate) || matchDates[matchDates.length - 1];
+            }
+            setDate(target);
+        }
+
+        function jumpToTodayOrNextMatchDay() {
+            const today = isoToday();
+            const matchDates = getMatchDatesForCurrentFilter();
+            const target = matchDates.find(date => date >= today) || matchDates[matchDates.length - 1] || today;
+            setDate(target);
+        }
+
+        function prettyDate(isoDate) {
+            return new Date(`${isoDate}T12:00:00`).toLocaleDateString('en-GB', {
+                weekday: 'long', day: 'numeric', month: 'long'
+            });
+        }
+
+        function setDate(isoDate) {
+            selectedDate = isoDate;
+            datePicker.value = selectedDate;
+            render();
+        }
+
+        function renderChips() {
+            teamChips.innerHTML = '';
+
+            // Get all unique groups
+            const groups = [...new Set(fixtures.filter(m => m.group).map(m => m.group))].sort();
+
+            // Render group tabs
+            const groupsSection = document.createElement('div');
+            groupsSection.style.marginBottom = '8px';
+            groupsSection.style.display = 'flex';
+            groupsSection.style.gap = '6px';
+            groupsSection.style.overflowX = 'auto';
+            groupsSection.style.paddingBottom = '4px';
+            groupsSection.style.WebkitOverflowScrolling = 'touch';
+
+            const groupAllBtn = document.createElement('button');
+            groupAllBtn.className = 'teamChip' + (selectedGroup === '' ? ' active' : '');
+            groupAllBtn.innerHTML = 'Groups';
+            groupAllBtn.onclick = () => {
+                selectedGroup = '';
+                selectedTeam = '';
+                render();
+            };
+            groupsSection.appendChild(groupAllBtn);
+
+            groups.forEach(group => {
+                const btn = document.createElement('button');
+                btn.className = 'teamChip' + (selectedGroup === group ? ' active' : '');
+                btn.textContent = `Group ${group}`;
+                btn.onclick = () => {
+                    selectedGroup = group;
+                    selectedTeam = '';
+                    render();
+                };
+                groupsSection.appendChild(btn);
+            });
+
+            teamChips.appendChild(groupsSection);
+
+            // Render team chips
+            const teamSection = document.createElement('div');
+            teamSection.style.display = 'flex';
+            teamSection.style.gap = '8px';
+            teamSection.style.overflowX = 'auto';
+            teamSection.style.paddingBottom = '4px';
+            teamSection.style.WebkitOverflowScrolling = 'touch';
+
+            const allTeamBtn = document.createElement('button');
+            allTeamBtn.className = 'teamChip' + (selectedTeam === '' && selectedGroup === '' ? ' active' : '');
+            allTeamBtn.innerHTML = '🌍<span>All</span>';
+            allTeamBtn.onclick = () => {
+                selectedTeam = '';
+                selectedGroup = '';
+                render();
+            };
+            teamSection.appendChild(allTeamBtn);
+
+            FOLLOWED_TEAMS.forEach(team => {
+                teamSection.appendChild(makeChip(team, FLAGS[team] || '🏳️', team));
+            });
+
+            teamChips.appendChild(teamSection);
+        }
+
+        function makeChip(team, flag, label) {
+            const button = document.createElement('button');
+            button.className = 'teamChip' + (team === selectedTeam ? ' active' : '');
+            button.dataset.team = team;
+            button.innerHTML = `<span class="flag">${flag}</span><span>${getShortName(label)}</span>`;
+            button.onclick = () => {
+                selectedTeam = team;
+                render();
+            };
+            return button;
+        }
+
+        function getShortName(name) {
+            const SHORTS = {
+                'Algeria': 'ALG', 'Argentina': 'ARG', 'Australia': 'AUS', 'Austria': 'AUT', 'Belgium': 'BEL',
+                'Bosnia-Herzegovina': 'BIH', 'Brazil': 'BRA', 'Canada': 'CAN', 'Cape Verde': 'CPV', 'Colombia': 'COL',
+                'Croatia': 'CRO', 'Curacao': 'CUW', 'Czech Republic': 'CZE', 'DR Congo': 'COD', 'Ecuador': 'ECU',
+                'Egypt': 'EGY', 'England': 'ENG', 'France': 'FRA', 'Germany': 'GER', 'Ghana': 'GHA',
+                'Haiti': 'HTI', 'Iran': 'IRN', 'Iraq': 'IRQ', 'Ivory Coast': 'CIV', 'Japan': 'JPN',
+                'Jordan': 'JOR', 'Mexico': 'MEX', 'Morocco': 'MAR', 'Netherlands': 'NED', 'New Zealand': 'NZL',
+                'Norway': 'NOR', 'Panama': 'PAN', 'Paraguay': 'PAR', 'Portugal': 'POR', 'Qatar': 'QAT',
+                'Saudi Arabia': 'KSA', 'Scotland': 'SCO', 'Senegal': 'SEN', 'South Africa': 'RSA', 'South Korea': 'KOR',
+                'Spain': 'ESP', 'Sweden': 'SWE', 'Switzerland': 'SUI', 'Tunisia': 'TUN', 'Turkey': 'TUR',
+                'USA': 'USA', 'Uruguay': 'URU', 'Uzbekistan': 'UZB'
+            };
+            return SHORTS[name] || name;
+        }
+
+        function getGroupTeams(group) {
+            const teams = new Set();
+            fixtures.filter(m => m.group === group).forEach(m => {
+                if (m.teams) m.teams.forEach(t => teams.add(t));
+            });
+            return Array.from(teams);
+        }
+
+        function getVisibleMatches() {
+            return fixtures.filter(match => {
+                if (selectedGroup) {
+                    // When a group is selected, show all matches for that group
+                    return match.group === selectedGroup;
+                } else if (selectedTeam) {
+                    // When a team is selected, show all matches for that team
+                    return (match.teams || []).includes(selectedTeam);
+                } else {
+                    // When "All" is selected, show matches for the selected date
+                    return match.date === selectedDate;
+                }
+            });
+        }
+
+        function render() {
+            dateLabel.textContent = `${selectedDate === isoToday() ? 'Today · ' : ''}${prettyDate(selectedDate)}`;
+            summary.innerHTML = '';
+            renderChips();
+
+            const rows = getVisibleMatches();
+
+            let summaryText = '';
+            if (selectedGroup) {
+                const groupTeams = getGroupTeams(selectedGroup);
+                summaryText = `Group ${selectedGroup} · ${groupTeams.length} teams`;
+            } else if (selectedTeam) {
+                summaryText = `${rows.length} match${rows.length === 1 ? '' : 'es'} · ${FLAGS[selectedTeam] || ''} ${selectedTeam}`;
+            } else {
+                summaryText = `${rows.length} match${rows.length === 1 ? '' : 'es'} on ${prettyDate(selectedDate)}`;
+            }
+
+            summary.innerHTML = summaryText;
+
+            if (!rows.length) {
+                matches.innerHTML = '<div class="empty">No matches for this day/filter. Use Next match day or choose All.</div>';
+                return;
+            }
+
+            matches.innerHTML = rows.map(match => `
+        <article class="match">
+          <div class="matchTop">
+            <div>
+              <div class="fixture">
+                ${renderTeam(match.teams?.[0])} vs ${renderTeam(match.teams?.[1])}
+              </div>
+              <div class="meta">@ ${match.day} ${match.date ? new Date(match.date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }) : ''} · ${match.round}${match.group ? ` · Group ${match.group}` : ''}</div>
+            </div>
+            <div class="time">${match.timeUK}</div>
+          </div>
+          <div class="tv">
+            <strong>${match.broadcast || 'TBC'}</strong>
+            ${match.streaming ? `<div class="stream">${match.streaming}</div>` : ''}
+          </div>
+        </article>
+      `).join('');
+
+            function renderTeam(team) {
+                if (!team) return '';
+                return `<span class='flag'>${FLAGS[team] || '🏳️'}</span><span>${getShortName(team)}</span>`;
+            }
+        }
+
+        const floatingMenu = document.getElementById('floatingMenu');
+        const floatingMenuContent = document.getElementById('floatingMenuContent');
+        const allMatchesBtn = document.getElementById('allMatchesBtn');
+        const closeMenuBtn = document.getElementById('closeMenuBtn');
+        const nextMatchBtn = document.getElementById('nextMatchBtn');
+
+        allMatchesBtn.onclick = () => {
+            floatingMenu.classList.add('open');
+            renderFloatingMenu();
+        };
+
+        closeMenuBtn.onclick = () => {
+            floatingMenu.classList.remove('open');
+        };
+
+        nextMatchBtn.onclick = () => {
+            const nextMatch = fixtures.find(match => `${match.date} ${match.timeUK}` >= `${selectedDate} ${new Date().toTimeString().slice(0, 5)}` || match.date > selectedDate);
+            if (nextMatch) {
+                setDate(nextMatch.date);
+                setTimeout(() => {
+                    const matchElements = document.querySelectorAll('.match');
+                    if (matchElements.length > 0) {
+                        matchElements[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 100);
+            }
+        };
+
+        function renderFloatingMenu() {
+            const allMatches = fixtures;
+            if (!allMatches.length) {
+                floatingMenuContent.innerHTML = '<div class="empty">No matches available</div>';
+                return;
+            }
+
+            floatingMenuContent.innerHTML = allMatches.map(match => {
+                const formattedDate = match.date ? new Date(match.date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }) : '';
+                return `
+                <div class="floatingMatchItem">
+                    <div class="floatingMatchInfo">
+                        <div class="floatingMatchTeams">${renderTeamShort(match.teams?.[0])} vs ${renderTeamShort(match.teams?.[1])}</div>
+                        <div class="floatingMatchMeta">${match.day} ${formattedDate} · ${match.timeUK}${match.group ? ` · Group ${match.group}` : ''} · ${match.round}</div>
+                    </div>
+                    <div class="floatingMatchBroadcast">${getBroadcasterIcon(match.broadcast)} ${match.broadcast || 'TBC'}</div>
+                </div>
+            `}).join('');
+        }
+
+        function renderTeamShort(team) {
+            if (!team) return '';
+            return `${FLAGS[team] || '🏳️'}<span style="margin-left: 4px;">${getShortName(team)}</span>`;
+        }
+
+        function getBroadcasterIcon(broadcast) {
+            if (!broadcast) return '';
+            const bc = broadcast.toUpperCase();
+            if (bc.includes('BBC')) return '📺';
+            if (bc.includes('ITV')) return '📡';
+            if (bc.includes('STV')) return '📺';
+            return '📺';
+        }
+
+        document.getElementById('prevDay').onclick = () => jumpToMatchDay(-1);
+        document.getElementById('nextDay').onclick = () => jumpToMatchDay(1);
+        document.getElementById('todayBtn').onclick = () => jumpToTodayOrNextMatchDay();
+        datePicker.onchange = () => setDate(datePicker.value);
+
+        // Remove any old service worker/cache from the previous version.
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(reg => reg.unregister()));
+        }
+        if ('caches' in window) {
+            caches.keys().then(keys => keys.forEach(key => caches.delete(key)));
+        }
+
+        fetch(`fixtures.json?cacheBust=${Date.now()}`, { cache: 'no-store' })
+            .then(response => response.json())
+            .then(data => {
+                fixtures = data.sort((a, b) => `${a.date} ${a.timeUK}`.localeCompare(`${b.date} ${b.timeUK}`));
+                jumpToTodayOrNextMatchDay();
+            })
+            .catch(error => {
+                matches.innerHTML = '<div class="empty">Could not load fixtures.json. Make sure it is in the same folder as index.html.</div>';
+                console.error(error);
+            });
+    </script>
+</body>
+
+</html>

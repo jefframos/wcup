@@ -1,0 +1,1874 @@
+[
+  {
+    "matchNo": 1,
+    "date": "2026-06-11",
+    "day": "Thursday",
+    "timeUK": "20:00",
+    "round": "Group Stage",
+    "group": "A",
+    "fixture": "Mexico vs South Africa",
+    "teams": [
+      "Mexico",
+      "South Africa"
+    ],
+    "venueCity": "Mexico City",
+    "hostCountry": "Mexico",
+    "broadcast": "ITV1 / STV",
+    "streaming": "STV Player; ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 2,
+    "date": "2026-06-12",
+    "day": "Friday",
+    "timeUK": "03:00",
+    "round": "Group Stage",
+    "group": "A",
+    "fixture": "South Korea vs Czech Republic",
+    "teams": [
+      "South Korea",
+      "Czech Republic"
+    ],
+    "venueCity": "Zapopan",
+    "hostCountry": "Mexico",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 3,
+    "date": "2026-06-12",
+    "day": "Friday",
+    "timeUK": "20:00",
+    "round": "Group Stage",
+    "group": "B",
+    "fixture": "Canada vs Bosnia-Herzegovina",
+    "teams": [
+      "Canada",
+      "Bosnia-Herzegovina"
+    ],
+    "venueCity": "Toronto",
+    "hostCountry": "Canada",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 4,
+    "date": "2026-06-13",
+    "day": "Saturday",
+    "timeUK": "02:00",
+    "round": "Group Stage",
+    "group": "D",
+    "fixture": "USA vs Paraguay",
+    "teams": [
+      "USA",
+      "Paraguay"
+    ],
+    "venueCity": "Los Angeles",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 5,
+    "date": "2026-06-13",
+    "day": "Saturday",
+    "timeUK": "20:00",
+    "round": "Group Stage",
+    "group": "B",
+    "fixture": "Qatar vs Switzerland",
+    "teams": [
+      "Qatar",
+      "Switzerland"
+    ],
+    "venueCity": "Santa Clara",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 6,
+    "date": "2026-06-13",
+    "day": "Saturday",
+    "timeUK": "23:00",
+    "round": "Group Stage",
+    "group": "C",
+    "fixture": "Brazil vs Morocco",
+    "teams": [
+      "Brazil",
+      "Morocco"
+    ],
+    "venueCity": "New Jersey",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 7,
+    "date": "2026-06-14",
+    "day": "Sunday",
+    "timeUK": "02:00",
+    "round": "Group Stage",
+    "group": "C",
+    "fixture": "Haiti vs Scotland",
+    "teams": [
+      "Haiti",
+      "Scotland"
+    ],
+    "venueCity": "Foxborough",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 8,
+    "date": "2026-06-14",
+    "day": "Sunday",
+    "timeUK": "05:00",
+    "round": "Group Stage",
+    "group": "D",
+    "fixture": "Australia vs Turkey",
+    "teams": [
+      "Australia",
+      "Turkey"
+    ],
+    "venueCity": "Vancouver",
+    "hostCountry": "Canada",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 9,
+    "date": "2026-06-14",
+    "day": "Sunday",
+    "timeUK": "18:00",
+    "round": "Group Stage",
+    "group": "E",
+    "fixture": "Germany vs Curacao",
+    "teams": [
+      "Germany",
+      "Curacao"
+    ],
+    "venueCity": "Houston",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 10,
+    "date": "2026-06-14",
+    "day": "Sunday",
+    "timeUK": "21:00",
+    "round": "Group Stage",
+    "group": "F",
+    "fixture": "Netherlands vs Japan",
+    "teams": [
+      "Netherlands",
+      "Japan"
+    ],
+    "venueCity": "Arlington",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 11,
+    "date": "2026-06-15",
+    "day": "Monday",
+    "timeUK": "00:00",
+    "round": "Group Stage",
+    "group": "E",
+    "fixture": "Ivory Coast vs Ecuador",
+    "teams": [
+      "Ivory Coast",
+      "Ecuador"
+    ],
+    "venueCity": "Philadelphia",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 12,
+    "date": "2026-06-15",
+    "day": "Monday",
+    "timeUK": "03:00",
+    "round": "Group Stage",
+    "group": "F",
+    "fixture": "Sweden vs Tunisia",
+    "teams": [
+      "Sweden",
+      "Tunisia"
+    ],
+    "venueCity": "Guadalupe",
+    "hostCountry": "Mexico",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 13,
+    "date": "2026-06-15",
+    "day": "Monday",
+    "timeUK": "17:00",
+    "round": "Group Stage",
+    "group": "H",
+    "fixture": "Spain vs Cape Verde",
+    "teams": [
+      "Spain",
+      "Cape Verde"
+    ],
+    "venueCity": "Atlanta",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 14,
+    "date": "2026-06-15",
+    "day": "Monday",
+    "timeUK": "20:00",
+    "round": "Group Stage",
+    "group": "G",
+    "fixture": "Belgium vs Egypt",
+    "teams": [
+      "Belgium",
+      "Egypt"
+    ],
+    "venueCity": "Seattle",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 15,
+    "date": "2026-06-15",
+    "day": "Monday",
+    "timeUK": "23:00",
+    "round": "Group Stage",
+    "group": "H",
+    "fixture": "Saudi Arabia vs Uruguay",
+    "teams": [
+      "Saudi Arabia",
+      "Uruguay"
+    ],
+    "venueCity": "Miami",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 16,
+    "date": "2026-06-16",
+    "day": "Tuesday",
+    "timeUK": "02:00",
+    "round": "Group Stage",
+    "group": "G",
+    "fixture": "Iran vs New Zealand",
+    "teams": [
+      "Iran",
+      "New Zealand"
+    ],
+    "venueCity": "Los Angeles",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 17,
+    "date": "2026-06-16",
+    "day": "Tuesday",
+    "timeUK": "20:00",
+    "round": "Group Stage",
+    "group": "I",
+    "fixture": "France vs Senegal",
+    "teams": [
+      "France",
+      "Senegal"
+    ],
+    "venueCity": "New Jersey",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 18,
+    "date": "2026-06-16",
+    "day": "Tuesday",
+    "timeUK": "23:00",
+    "round": "Group Stage",
+    "group": "I",
+    "fixture": "Iraq vs Norway",
+    "teams": [
+      "Iraq",
+      "Norway"
+    ],
+    "venueCity": "Foxborough",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 19,
+    "date": "2026-06-17",
+    "day": "Wednesday",
+    "timeUK": "02:00",
+    "round": "Group Stage",
+    "group": "J",
+    "fixture": "Argentina vs Algeria",
+    "teams": [
+      "Argentina",
+      "Algeria"
+    ],
+    "venueCity": "Kansas City",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 20,
+    "date": "2026-06-17",
+    "day": "Wednesday",
+    "timeUK": "05:00",
+    "round": "Group Stage",
+    "group": "J",
+    "fixture": "Austria vs Jordan",
+    "teams": [
+      "Austria",
+      "Jordan"
+    ],
+    "venueCity": "Santa Clara",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 21,
+    "date": "2026-06-17",
+    "day": "Wednesday",
+    "timeUK": "18:00",
+    "round": "Group Stage",
+    "group": "K",
+    "fixture": "Portugal vs DR Congo",
+    "teams": [
+      "Portugal",
+      "DR Congo"
+    ],
+    "venueCity": "Houston",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 22,
+    "date": "2026-06-17",
+    "day": "Wednesday",
+    "timeUK": "21:00",
+    "round": "Group Stage",
+    "group": "L",
+    "fixture": "England vs Croatia",
+    "teams": [
+      "England",
+      "Croatia"
+    ],
+    "venueCity": "Arlington",
+    "hostCountry": "USA",
+    "broadcast": "ITV1 / STV",
+    "streaming": "STV Player; ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 23,
+    "date": "2026-06-18",
+    "day": "Thursday",
+    "timeUK": "00:00",
+    "round": "Group Stage",
+    "group": "L",
+    "fixture": "Ghana vs Panama",
+    "teams": [
+      "Ghana",
+      "Panama"
+    ],
+    "venueCity": "Toronto",
+    "hostCountry": "Canada",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 24,
+    "date": "2026-06-18",
+    "day": "Thursday",
+    "timeUK": "03:00",
+    "round": "Group Stage",
+    "group": "K",
+    "fixture": "Uzbekistan vs Colombia",
+    "teams": [
+      "Uzbekistan",
+      "Colombia"
+    ],
+    "venueCity": "Mexico City",
+    "hostCountry": "Mexico",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 25,
+    "date": "2026-06-18",
+    "day": "Thursday",
+    "timeUK": "17:00",
+    "round": "Group Stage",
+    "group": "A",
+    "fixture": "Czech Republic vs South Africa",
+    "teams": [
+      "Czech Republic",
+      "South Africa"
+    ],
+    "venueCity": "Atlanta",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 26,
+    "date": "2026-06-18",
+    "day": "Thursday",
+    "timeUK": "20:00",
+    "round": "Group Stage",
+    "group": "B",
+    "fixture": "Switzerland vs Bosnia-Herzegovina",
+    "teams": [
+      "Switzerland",
+      "Bosnia-Herzegovina"
+    ],
+    "venueCity": "Los Angeles",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 27,
+    "date": "2026-06-18",
+    "day": "Thursday",
+    "timeUK": "23:00",
+    "round": "Group Stage",
+    "group": "B",
+    "fixture": "Canada vs Qatar",
+    "teams": [
+      "Canada",
+      "Qatar"
+    ],
+    "venueCity": "Vancouver",
+    "hostCountry": "Canada",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 28,
+    "date": "2026-06-19",
+    "day": "Friday",
+    "timeUK": "02:00",
+    "round": "Group Stage",
+    "group": "A",
+    "fixture": "Mexico vs South Korea",
+    "teams": [
+      "Mexico",
+      "South Korea"
+    ],
+    "venueCity": "Zapopan",
+    "hostCountry": "Mexico",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 29,
+    "date": "2026-06-19",
+    "day": "Friday",
+    "timeUK": "20:00",
+    "round": "Group Stage",
+    "group": "D",
+    "fixture": "USA vs Australia",
+    "teams": [
+      "USA",
+      "Australia"
+    ],
+    "venueCity": "Seattle",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 30,
+    "date": "2026-06-19",
+    "day": "Friday",
+    "timeUK": "23:00",
+    "round": "Group Stage",
+    "group": "C",
+    "fixture": "Scotland vs Morocco",
+    "teams": [
+      "Scotland",
+      "Morocco"
+    ],
+    "venueCity": "Foxborough",
+    "hostCountry": "USA",
+    "broadcast": "ITV1 / STV",
+    "streaming": "STV Player; ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 31,
+    "date": "2026-06-20",
+    "day": "Saturday",
+    "timeUK": "02:00",
+    "round": "Group Stage",
+    "group": "C",
+    "fixture": "Brazil vs Haiti",
+    "teams": [
+      "Brazil",
+      "Haiti"
+    ],
+    "venueCity": "Philadelphia",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 32,
+    "date": "2026-06-20",
+    "day": "Saturday",
+    "timeUK": "05:00",
+    "round": "Group Stage",
+    "group": "D",
+    "fixture": "Turkey vs Paraguay",
+    "teams": [
+      "Turkey",
+      "Paraguay"
+    ],
+    "venueCity": "Santa Clara",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 33,
+    "date": "2026-06-20",
+    "day": "Saturday",
+    "timeUK": "18:00",
+    "round": "Group Stage",
+    "group": "F",
+    "fixture": "Netherlands vs Sweden",
+    "teams": [
+      "Netherlands",
+      "Sweden"
+    ],
+    "venueCity": "Houston",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 34,
+    "date": "2026-06-20",
+    "day": "Saturday",
+    "timeUK": "21:00",
+    "round": "Group Stage",
+    "group": "E",
+    "fixture": "Germany vs Ivory Coast",
+    "teams": [
+      "Germany",
+      "Ivory Coast"
+    ],
+    "venueCity": "Toronto",
+    "hostCountry": "Canada",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 35,
+    "date": "2026-06-21",
+    "day": "Sunday",
+    "timeUK": "01:00",
+    "round": "Group Stage",
+    "group": "E",
+    "fixture": "Ecuador vs Curacao",
+    "teams": [
+      "Ecuador",
+      "Curacao"
+    ],
+    "venueCity": "Kansas City",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 36,
+    "date": "2026-06-21",
+    "day": "Sunday",
+    "timeUK": "05:00",
+    "round": "Group Stage",
+    "group": "F",
+    "fixture": "Tunisia vs Japan",
+    "teams": [
+      "Tunisia",
+      "Japan"
+    ],
+    "venueCity": "Guadalupe",
+    "hostCountry": "Mexico",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 37,
+    "date": "2026-06-21",
+    "day": "Sunday",
+    "timeUK": "17:00",
+    "round": "Group Stage",
+    "group": "H",
+    "fixture": "Spain vs Saudi Arabia",
+    "teams": [
+      "Spain",
+      "Saudi Arabia"
+    ],
+    "venueCity": "Atlanta",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 38,
+    "date": "2026-06-21",
+    "day": "Sunday",
+    "timeUK": "20:00",
+    "round": "Group Stage",
+    "group": "G",
+    "fixture": "Belgium vs Iran",
+    "teams": [
+      "Belgium",
+      "Iran"
+    ],
+    "venueCity": "Los Angeles",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 39,
+    "date": "2026-06-21",
+    "day": "Sunday",
+    "timeUK": "23:00",
+    "round": "Group Stage",
+    "group": "H",
+    "fixture": "Uruguay vs Cape Verde",
+    "teams": [
+      "Uruguay",
+      "Cape Verde"
+    ],
+    "venueCity": "Miami",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 40,
+    "date": "2026-06-22",
+    "day": "Monday",
+    "timeUK": "02:00",
+    "round": "Group Stage",
+    "group": "G",
+    "fixture": "New Zealand vs Egypt",
+    "teams": [
+      "New Zealand",
+      "Egypt"
+    ],
+    "venueCity": "Vancouver",
+    "hostCountry": "Canada",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 41,
+    "date": "2026-06-22",
+    "day": "Monday",
+    "timeUK": "18:00",
+    "round": "Group Stage",
+    "group": "J",
+    "fixture": "Argentina vs Austria",
+    "teams": [
+      "Argentina",
+      "Austria"
+    ],
+    "venueCity": "Arlington",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 42,
+    "date": "2026-06-22",
+    "day": "Monday",
+    "timeUK": "22:00",
+    "round": "Group Stage",
+    "group": "I",
+    "fixture": "France vs Iraq",
+    "teams": [
+      "France",
+      "Iraq"
+    ],
+    "venueCity": "Philadelphia",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 43,
+    "date": "2026-06-23",
+    "day": "Tuesday",
+    "timeUK": "01:00",
+    "round": "Group Stage",
+    "group": "I",
+    "fixture": "Norway vs Senegal",
+    "teams": [
+      "Norway",
+      "Senegal"
+    ],
+    "venueCity": "Toronto",
+    "hostCountry": "Canada",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 44,
+    "date": "2026-06-23",
+    "day": "Tuesday",
+    "timeUK": "04:00",
+    "round": "Group Stage",
+    "group": "J",
+    "fixture": "Jordan vs Algeria",
+    "teams": [
+      "Jordan",
+      "Algeria"
+    ],
+    "venueCity": "Santa Clara",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 45,
+    "date": "2026-06-23",
+    "day": "Tuesday",
+    "timeUK": "18:00",
+    "round": "Group Stage",
+    "group": "K",
+    "fixture": "Portugal vs Uzbekistan",
+    "teams": [
+      "Portugal",
+      "Uzbekistan"
+    ],
+    "venueCity": "Houston",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 46,
+    "date": "2026-06-23",
+    "day": "Tuesday",
+    "timeUK": "21:00",
+    "round": "Group Stage",
+    "group": "L",
+    "fixture": "England vs Ghana",
+    "teams": [
+      "England",
+      "Ghana"
+    ],
+    "venueCity": "Foxborough",
+    "hostCountry": "USA",
+    "broadcast": "BBC One",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 47,
+    "date": "2026-06-24",
+    "day": "Wednesday",
+    "timeUK": "00:00",
+    "round": "Group Stage",
+    "group": "L",
+    "fixture": "Panama vs Croatia",
+    "teams": [
+      "Panama",
+      "Croatia"
+    ],
+    "venueCity": "Foxborough",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 48,
+    "date": "2026-06-24",
+    "day": "Wednesday",
+    "timeUK": "03:00",
+    "round": "Group Stage",
+    "group": "K",
+    "fixture": "Colombia vs DR Congo",
+    "teams": [
+      "Colombia",
+      "DR Congo"
+    ],
+    "venueCity": "Zapopan",
+    "hostCountry": "Mexico",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 49,
+    "date": "2026-06-24",
+    "day": "Wednesday",
+    "timeUK": "20:00",
+    "round": "Group Stage",
+    "group": "B",
+    "fixture": "Switzerland vs Canada",
+    "teams": [
+      "Switzerland",
+      "Canada"
+    ],
+    "venueCity": "Vancouver",
+    "hostCountry": "Canada",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 50,
+    "date": "2026-06-24",
+    "day": "Wednesday",
+    "timeUK": "20:00",
+    "round": "Group Stage",
+    "group": "B",
+    "fixture": "Bosnia-Herzegovina vs Qatar",
+    "teams": [
+      "Bosnia-Herzegovina",
+      "Qatar"
+    ],
+    "venueCity": "Seattle",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 51,
+    "date": "2026-06-24",
+    "day": "Wednesday",
+    "timeUK": "23:00",
+    "round": "Group Stage",
+    "group": "C",
+    "fixture": "Morocco vs Haiti",
+    "teams": [
+      "Morocco",
+      "Haiti"
+    ],
+    "venueCity": "Atlanta",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 52,
+    "date": "2026-06-24",
+    "day": "Wednesday",
+    "timeUK": "23:00",
+    "round": "Group Stage",
+    "group": "C",
+    "fixture": "Scotland vs Brazil",
+    "teams": [
+      "Scotland",
+      "Brazil"
+    ],
+    "venueCity": "Miami",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 53,
+    "date": "2026-06-25",
+    "day": "Thursday",
+    "timeUK": "02:00",
+    "round": "Group Stage",
+    "group": "A",
+    "fixture": "South Africa vs South Korea",
+    "teams": [
+      "South Africa",
+      "South Korea"
+    ],
+    "venueCity": "Guadalupe",
+    "hostCountry": "Mexico",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 54,
+    "date": "2026-06-25",
+    "day": "Thursday",
+    "timeUK": "02:00",
+    "round": "Group Stage",
+    "group": "A",
+    "fixture": "Czech Republic vs Mexico",
+    "teams": [
+      "Czech Republic",
+      "Mexico"
+    ],
+    "venueCity": "Mexico City",
+    "hostCountry": "Mexico",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 55,
+    "date": "2026-06-25",
+    "day": "Thursday",
+    "timeUK": "21:00",
+    "round": "Group Stage",
+    "group": "E",
+    "fixture": "Curacao vs Ivory Coast",
+    "teams": [
+      "Curacao",
+      "Ivory Coast"
+    ],
+    "venueCity": "Philadelphia",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 56,
+    "date": "2026-06-25",
+    "day": "Thursday",
+    "timeUK": "21:00",
+    "round": "Group Stage",
+    "group": "E",
+    "fixture": "Ecuador vs Germany",
+    "teams": [
+      "Ecuador",
+      "Germany"
+    ],
+    "venueCity": "New Jersey",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 57,
+    "date": "2026-06-26",
+    "day": "Friday",
+    "timeUK": "00:00",
+    "round": "Group Stage",
+    "group": "F",
+    "fixture": "Tunisia vs Netherlands",
+    "teams": [
+      "Tunisia",
+      "Netherlands"
+    ],
+    "venueCity": "Kansas City",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 58,
+    "date": "2026-06-26",
+    "day": "Friday",
+    "timeUK": "00:00",
+    "round": "Group Stage",
+    "group": "F",
+    "fixture": "Japan vs Sweden",
+    "teams": [
+      "Japan",
+      "Sweden"
+    ],
+    "venueCity": "Arlington",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 59,
+    "date": "2026-06-26",
+    "day": "Friday",
+    "timeUK": "03:00",
+    "round": "Group Stage",
+    "group": "D",
+    "fixture": "Turkey vs USA",
+    "teams": [
+      "Turkey",
+      "USA"
+    ],
+    "venueCity": "Los Angeles",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 60,
+    "date": "2026-06-26",
+    "day": "Friday",
+    "timeUK": "03:00",
+    "round": "Group Stage",
+    "group": "D",
+    "fixture": "Paraguay vs Australia",
+    "teams": [
+      "Paraguay",
+      "Australia"
+    ],
+    "venueCity": "Santa Clara",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 61,
+    "date": "2026-06-26",
+    "day": "Friday",
+    "timeUK": "20:00",
+    "round": "Group Stage",
+    "group": "I",
+    "fixture": "Norway vs France",
+    "teams": [
+      "Norway",
+      "France"
+    ],
+    "venueCity": "Foxborough",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 62,
+    "date": "2026-06-26",
+    "day": "Friday",
+    "timeUK": "20:00",
+    "round": "Group Stage",
+    "group": "I",
+    "fixture": "Senegal vs Iraq",
+    "teams": [
+      "Senegal",
+      "Iraq"
+    ],
+    "venueCity": "Toronto",
+    "hostCountry": "Canada",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 63,
+    "date": "2026-06-27",
+    "day": "Saturday",
+    "timeUK": "01:00",
+    "round": "Group Stage",
+    "group": "H",
+    "fixture": "Cape Verde vs Saudi Arabia",
+    "teams": [
+      "Cape Verde",
+      "Saudi Arabia"
+    ],
+    "venueCity": "Houston",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 64,
+    "date": "2026-06-27",
+    "day": "Saturday",
+    "timeUK": "01:00",
+    "round": "Group Stage",
+    "group": "H",
+    "fixture": "Uruguay vs Spain",
+    "teams": [
+      "Uruguay",
+      "Spain"
+    ],
+    "venueCity": "Zapopan",
+    "hostCountry": "Mexico",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 65,
+    "date": "2026-06-27",
+    "day": "Saturday",
+    "timeUK": "04:00",
+    "round": "Group Stage",
+    "group": "G",
+    "fixture": "New Zealand vs Belgium",
+    "teams": [
+      "New Zealand",
+      "Belgium"
+    ],
+    "venueCity": "Vancouver",
+    "hostCountry": "Canada",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 66,
+    "date": "2026-06-27",
+    "day": "Saturday",
+    "timeUK": "04:00",
+    "round": "Group Stage",
+    "group": "G",
+    "fixture": "Egypt vs Iran",
+    "teams": [
+      "Egypt",
+      "Iran"
+    ],
+    "venueCity": "Seattle",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 67,
+    "date": "2026-06-27",
+    "day": "Saturday",
+    "timeUK": "22:00",
+    "round": "Group Stage",
+    "group": "L",
+    "fixture": "Panama vs England",
+    "teams": [
+      "Panama",
+      "England"
+    ],
+    "venueCity": "New Jersey",
+    "hostCountry": "USA",
+    "broadcast": "ITV1 / STV",
+    "streaming": "STV Player; ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 68,
+    "date": "2026-06-27",
+    "day": "Saturday",
+    "timeUK": "22:00",
+    "round": "Group Stage",
+    "group": "L",
+    "fixture": "Croatia vs Ghana",
+    "teams": [
+      "Croatia",
+      "Ghana"
+    ],
+    "venueCity": "Philadelphia",
+    "hostCountry": "USA",
+    "broadcast": "ITV",
+    "streaming": "ITVX",
+    "notes": ""
+  },
+  {
+    "matchNo": 69,
+    "date": "2026-06-28",
+    "day": "Sunday",
+    "timeUK": "00:30",
+    "round": "Group Stage",
+    "group": "K",
+    "fixture": "Colombia vs Portugal",
+    "teams": [
+      "Colombia",
+      "Portugal"
+    ],
+    "venueCity": "Miami",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 70,
+    "date": "2026-06-28",
+    "day": "Sunday",
+    "timeUK": "00:30",
+    "round": "Group Stage",
+    "group": "K",
+    "fixture": "DR Congo vs Uzbekistan",
+    "teams": [
+      "DR Congo",
+      "Uzbekistan"
+    ],
+    "venueCity": "Atlanta",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 71,
+    "date": "2026-06-28",
+    "day": "Sunday",
+    "timeUK": "03:00",
+    "round": "Group Stage",
+    "group": "J",
+    "fixture": "Algeria vs Austria",
+    "teams": [
+      "Algeria",
+      "Austria"
+    ],
+    "venueCity": "Kansas City",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 72,
+    "date": "2026-06-28",
+    "day": "Sunday",
+    "timeUK": "03:00",
+    "round": "Group Stage",
+    "group": "J",
+    "fixture": "Jordan vs Argentina",
+    "teams": [
+      "Jordan",
+      "Argentina"
+    ],
+    "venueCity": "Arlington",
+    "hostCountry": "USA",
+    "broadcast": "BBC",
+    "streaming": "BBC iPlayer / BBC Sport",
+    "notes": ""
+  },
+  {
+    "matchNo": 73,
+    "date": "2026-06-28",
+    "day": "Sunday",
+    "timeUK": "20:00",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 73: Group A runners-up vs Group B runners-up",
+    "teams": [
+      "Match 73: Group A runners-up",
+      "Group B runners-up"
+    ],
+    "venueCity": "Los Angeles",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 74,
+    "date": "2026-06-29",
+    "day": "Monday",
+    "timeUK": "18:00",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 76: Group C winners vs Group F runners-up",
+    "teams": [
+      "Match 76: Group C winners",
+      "Group F runners-up"
+    ],
+    "venueCity": "Houston",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 75,
+    "date": "2026-06-29",
+    "day": "Monday",
+    "timeUK": "21:30",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 74: Group E winners vs Group A/B/C/D/F third place",
+    "teams": [
+      "Match 74: Group E winners",
+      "Group A/B/C/D/F third place"
+    ],
+    "venueCity": "Foxborough",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 76,
+    "date": "2026-06-30",
+    "day": "Tuesday",
+    "timeUK": "02:00",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 75: Group F winners vs Group C runners-up",
+    "teams": [
+      "Match 75: Group F winners",
+      "Group C runners-up"
+    ],
+    "venueCity": "Guadalupe",
+    "hostCountry": "Mexico",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 77,
+    "date": "2026-06-30",
+    "day": "Tuesday",
+    "timeUK": "18:00",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 78: Group E runners-up vs Group I runners-up",
+    "teams": [
+      "Match 78: Group E runners-up",
+      "Group I runners-up"
+    ],
+    "venueCity": "Arlington",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 78,
+    "date": "2026-06-30",
+    "day": "Tuesday",
+    "timeUK": "22:00",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 77: Group I winners vs Group C/D/F/G/H third place",
+    "teams": [
+      "Match 77: Group I winners",
+      "Group C/D/F/G/H third place"
+    ],
+    "venueCity": "New Jersey",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 79,
+    "date": "2026-07-01",
+    "day": "Wednesday",
+    "timeUK": "02:00",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 79: Group A winners vs Group C/E/F/H/I third place",
+    "teams": [
+      "Match 79: Group A winners",
+      "Group C/E/F/H/I third place"
+    ],
+    "venueCity": "Mexico City",
+    "hostCountry": "Mexico",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 80,
+    "date": "2026-07-01",
+    "day": "Wednesday",
+    "timeUK": "17:00",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 80: Group L winners vs Group E/H/I/J/K third place",
+    "teams": [
+      "Match 80: Group L winners",
+      "Group E/H/I/J/K third place"
+    ],
+    "venueCity": "Atlanta",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 81,
+    "date": "2026-07-01",
+    "day": "Wednesday",
+    "timeUK": "21:00",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 82: Group G winners vs Group A/E/H/I/J third place",
+    "teams": [
+      "Match 82: Group G winners",
+      "Group A/E/H/I/J third place"
+    ],
+    "venueCity": "Seattle",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 82,
+    "date": "2026-07-02",
+    "day": "Thursday",
+    "timeUK": "01:00",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 81: Group D winners vs Group B/E/F/I/J third place",
+    "teams": [
+      "Match 81: Group D winners",
+      "Group B/E/F/I/J third place"
+    ],
+    "venueCity": "Santa Clara",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 83,
+    "date": "2026-07-02",
+    "day": "Thursday",
+    "timeUK": "20:00",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 84: Group H winners vs Group J runners-up",
+    "teams": [
+      "Match 84: Group H winners",
+      "Group J runners-up"
+    ],
+    "venueCity": "Los Angeles",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 84,
+    "date": "2026-07-03",
+    "day": "Friday",
+    "timeUK": "00:00",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 83: Group K runners-up vs Group L runners-up",
+    "teams": [
+      "Match 83: Group K runners-up",
+      "Group L runners-up"
+    ],
+    "venueCity": "Toronto",
+    "hostCountry": "Canada",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 85,
+    "date": "2026-07-03",
+    "day": "Friday",
+    "timeUK": "04:00",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 85: Group B winners vs Group E/F/G/I/J third place",
+    "teams": [
+      "Match 85: Group B winners",
+      "Group E/F/G/I/J third place"
+    ],
+    "venueCity": "Vancouver",
+    "hostCountry": "Canada",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 86,
+    "date": "2026-07-03",
+    "day": "Friday",
+    "timeUK": "19:00",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 88: Group D runners-up vs Group G runners-up",
+    "teams": [
+      "Match 88: Group D runners-up",
+      "Group G runners-up"
+    ],
+    "venueCity": "Arlington",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 87,
+    "date": "2026-07-03",
+    "day": "Friday",
+    "timeUK": "23:00",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 86: Group J winners vs Group H runners-up",
+    "teams": [
+      "Match 86: Group J winners",
+      "Group H runners-up"
+    ],
+    "venueCity": "Miami",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 88,
+    "date": "2026-07-04",
+    "day": "Saturday",
+    "timeUK": "02:30",
+    "round": "Round of 32",
+    "group": "",
+    "fixture": "Match 87: Group K winners vs Group D/E/I/J/L third place",
+    "teams": [
+      "Match 87: Group K winners",
+      "Group D/E/I/J/L third place"
+    ],
+    "venueCity": "Kansas City",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 89,
+    "date": "2026-07-04",
+    "day": "Saturday",
+    "timeUK": "18:00",
+    "round": "Round of 16",
+    "group": "",
+    "fixture": "Match 90: Match 73 winners vs Match 75 winners",
+    "teams": [
+      "Match 90: Match 73 winners",
+      "Match 75 winners"
+    ],
+    "venueCity": "Houston",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 90,
+    "date": "2026-07-04",
+    "day": "Saturday",
+    "timeUK": "22:00",
+    "round": "Round of 16",
+    "group": "",
+    "fixture": "Match 89: Match 74 winners vs Match 77 winners",
+    "teams": [
+      "Match 89: Match 74 winners",
+      "Match 77 winners"
+    ],
+    "venueCity": "Philadelphia",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 91,
+    "date": "2026-07-05",
+    "day": "Sunday",
+    "timeUK": "21:00",
+    "round": "Round of 16",
+    "group": "",
+    "fixture": "Match 91: Match 76 winners vs Match 78 winners",
+    "teams": [
+      "Match 91: Match 76 winners",
+      "Match 78 winners"
+    ],
+    "venueCity": "New Jersey",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 92,
+    "date": "2026-07-06",
+    "day": "Monday",
+    "timeUK": "01:00",
+    "round": "Round of 16",
+    "group": "",
+    "fixture": "Match 92: Match 79 winners vs Match 80 winners",
+    "teams": [
+      "Match 92: Match 79 winners",
+      "Match 80 winners"
+    ],
+    "venueCity": "Mexico City",
+    "hostCountry": "Mexico",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 93,
+    "date": "2026-07-06",
+    "day": "Monday",
+    "timeUK": "20:00",
+    "round": "Round of 16",
+    "group": "",
+    "fixture": "Match 93: Match 83 winners vs Match 84 winners",
+    "teams": [
+      "Match 93: Match 83 winners",
+      "Match 84 winners"
+    ],
+    "venueCity": "Arlington",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 94,
+    "date": "2026-07-07",
+    "day": "Tuesday",
+    "timeUK": "01:00",
+    "round": "Round of 16",
+    "group": "",
+    "fixture": "Match 94: Match 81 winners vs Match 82 winners",
+    "teams": [
+      "Match 94: Match 81 winners",
+      "Match 82 winners"
+    ],
+    "venueCity": "Seattle",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 95,
+    "date": "2026-07-07",
+    "day": "Tuesday",
+    "timeUK": "17:00",
+    "round": "Round of 16",
+    "group": "",
+    "fixture": "Match 95: Match 86 winners vs Match 88 winners",
+    "teams": [
+      "Match 95: Match 86 winners",
+      "Match 88 winners"
+    ],
+    "venueCity": "Atlanta",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 96,
+    "date": "2026-07-07",
+    "day": "Tuesday",
+    "timeUK": "21:00",
+    "round": "Round of 16",
+    "group": "",
+    "fixture": "Match 96: Match 85 winners vs Match 87 winners",
+    "teams": [
+      "Match 96: Match 85 winners",
+      "Match 87 winners"
+    ],
+    "venueCity": "Vancouver",
+    "hostCountry": "Canada",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 97,
+    "date": "2026-07-09",
+    "day": "Thursday",
+    "timeUK": "21:00",
+    "round": "Quarter-final",
+    "group": "",
+    "fixture": "Match 97: Match 89 winners vs Match 90 winners",
+    "teams": [
+      "Match 97: Match 89 winners",
+      "Match 90 winners"
+    ],
+    "venueCity": "Foxborough",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 98,
+    "date": "2026-07-10",
+    "day": "Friday",
+    "timeUK": "20:00",
+    "round": "Quarter-final",
+    "group": "",
+    "fixture": "Match 98: Match 93 winners vs Match 94 winners",
+    "teams": [
+      "Match 98: Match 93 winners",
+      "Match 94 winners"
+    ],
+    "venueCity": "Los Angeles",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 99,
+    "date": "2026-07-11",
+    "day": "Saturday",
+    "timeUK": "22:00",
+    "round": "Quarter-final",
+    "group": "",
+    "fixture": "Match 99: Match 91 winners vs Match 92 winners",
+    "teams": [
+      "Match 99: Match 91 winners",
+      "Match 92 winners"
+    ],
+    "venueCity": "Miami",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 100,
+    "date": "2026-07-12",
+    "day": "Sunday",
+    "timeUK": "02:00",
+    "round": "Quarter-final",
+    "group": "",
+    "fixture": "Match 100: Match 95 winners vs Match 96 winners",
+    "teams": [
+      "Match 100: Match 95 winners",
+      "Match 96 winners"
+    ],
+    "venueCity": "Kansas City",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 101,
+    "date": "2026-07-14",
+    "day": "Tuesday",
+    "timeUK": "20:00",
+    "round": "Semi-final",
+    "group": "",
+    "fixture": "Match 101: Match 97 winners vs Match 98 winners",
+    "teams": [
+      "Match 101: Match 97 winners",
+      "Match 98 winners"
+    ],
+    "venueCity": "Arlington",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 102,
+    "date": "2026-07-15",
+    "day": "Wednesday",
+    "timeUK": "20:00",
+    "round": "Semi-final",
+    "group": "",
+    "fixture": "Match 102: Match 99 winners vs Match 100 winners",
+    "teams": [
+      "Match 102: Match 99 winners",
+      "Match 100 winners"
+    ],
+    "venueCity": "Atlanta",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 103,
+    "date": "2026-07-18",
+    "day": "Saturday",
+    "timeUK": "22:00",
+    "round": "Third Place Playoff",
+    "group": "",
+    "fixture": "Match 103: Match 101 losers vs Match 102 losers",
+    "teams": [
+      "Match 103: Match 101 losers",
+      "Match 102 losers"
+    ],
+    "venueCity": "Miami",
+    "hostCountry": "USA",
+    "broadcast": "TBC",
+    "streaming": "TBC",
+    "notes": "Knockout-stage broadcaster allocation not yet confirmed; depends on results and broadcaster picks."
+  },
+  {
+    "matchNo": 104,
+    "date": "2026-07-19",
+    "day": "Sunday",
+    "timeUK": "20:00",
+    "round": "Final",
+    "group": "",
+    "fixture": "Match 104: Match 101 winners vs Match 102 winners",
+    "teams": [
+      "Match 104: Match 101 winners",
+      "Match 102 winners"
+    ],
+    "venueCity": "New Jersey",
+    "hostCountry": "USA",
+    "broadcast": "BBC & ITV",
+    "streaming": "BBC iPlayer; ITVX",
+    "notes": "Final is shared/simulcast; exact linear channels may be confirmed nearer the time."
+  }
+]
