@@ -168,6 +168,18 @@
             margin-top: 4px;
         }
 
+        .scorePill {
+            display: inline-block;
+            margin: 0 6px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: #0f172a;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 800;
+            vertical-align: middle;
+        }
+
         .tv {
             margin-top: 12px;
             padding: 11px;
@@ -336,6 +348,76 @@
         main {
             padding-bottom: 80px;
         }
+
+        .standings {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 16px;
+            margin: 10px 0;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, .05);
+        }
+
+        .standings h3 {
+            margin: 0 0 12px;
+            font-size: 16px;
+        }
+
+        .standings-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .standings-table thead {
+            background: #f1f5f9;
+        }
+
+        .standings-table th {
+            padding: 8px 6px;
+            text-align: left;
+            font-weight: 600;
+            color: #0f172a;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .standings-table td {
+            padding: 8px 6px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .standings-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .standings-team {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .standings-team img {
+            width: 16px;
+            height: 12px;
+        }
+
+        .standings-pos {
+            font-weight: 600;
+            color: #64748b;
+            width: 24px;
+        }
+
+        .standings-pts {
+            font-weight: 600;
+            color: #0f172a;
+            width: 30px;
+        }
+
+        .standings-stat {
+            text-align: center;
+            width: 30px;
+            color: #64748b;
+        }
     </style>
 </head>
 
@@ -365,7 +447,6 @@
 
     <button class="nextMatchBtn" id="nextMatchBtn" title="Scroll to next match">⏭️</button>
     <button class="allMatchesBtn" id="allMatchesBtn" title="Show all matches">📋</button>
-
     <div class="floatingMenu" id="floatingMenu">
         <div class="floatingMenuHeader">
             <h2>All Matches</h2>
@@ -434,6 +515,7 @@
         let selectedDate = isoToday();
         let selectedTeam = '';
         let selectedGroup = '';
+        let liveRefreshTimer = null;
 
         const datePicker = document.getElementById('datePicker');
         const dateLabel = document.getElementById('dateLabel');
@@ -527,6 +609,7 @@
                 btn.onclick = () => {
                     selectedGroup = group;
                     selectedTeam = '';
+                    startGroupLiveRefresh();
                     render();
                 };
                 groupsSection.appendChild(btn);
@@ -548,6 +631,7 @@
             allTeamBtn.onclick = () => {
                 selectedTeam = '';
                 selectedGroup = '';
+                stopGroupLiveRefresh();
                 render();
             };
             teamSection.appendChild(allTeamBtn);
@@ -566,6 +650,8 @@
             button.innerHTML = `<span class="flag">${flag}</span><span>${getShortName(label)}</span>`;
             button.onclick = () => {
                 selectedTeam = team;
+                selectedGroup = '';
+                stopGroupLiveRefresh();
                 render();
             };
             return button;
@@ -620,7 +706,7 @@
             let summaryText = '';
             if (selectedGroup) {
                 const groupTeams = getGroupTeams(selectedGroup);
-                summaryText = `Group ${selectedGroup} · ${groupTeams.length} teams`;
+                summaryText = `Group ${selectedGroup} · ${groupTeams.length} teams · live refresh every 60s`;
             } else if (selectedTeam) {
                 summaryText = `${rows.length} match${rows.length === 1 ? '' : 'es'} · ${FLAGS[selectedTeam] || ''} ${selectedTeam}`;
             } else {
@@ -634,12 +720,19 @@
                 return;
             }
 
-            matches.innerHTML = rows.map(match => `
+            // Build standings + matches if group is selected
+            let htmlContent = '';
+            if (selectedGroup) {
+                const standings = buildGroupStandingsHTML(selectedGroup);
+                htmlContent = standings;
+            }
+
+            htmlContent += rows.map(match => `
         <article class="match">
           <div class="matchTop">
             <div>
               <div class="fixture">
-                ${renderTeam(match.teams?.[0])} vs ${renderTeam(match.teams?.[1])}
+                                ${renderTeam(match.teams?.[0])} <span class="scorePill">${getMatchScoreText(match)}</span> ${renderTeam(match.teams?.[1])}
               </div>
               <div class="meta">@ ${match.day} ${match.date ? new Date(match.date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'long' }) : ''} · ${match.round}${match.group ? ` · Group ${match.group}` : ''}</div>
             </div>
@@ -652,39 +745,225 @@
         </article>
       `).join('');
 
+            matches.innerHTML = htmlContent;
+
             function renderTeam(team) {
                 if (!team) return '';
                 return `<span class='flag'>${FLAGS[team] || '🏳️'}</span><span>${getShortName(team)}</span>`;
             }
         }
 
-        const floatingMenu = document.getElementById('floatingMenu');
+        function buildGroupStandingsHTML(group) {
+            const teamIds = getGroupTeams(group);
+            const groupMatches = fixtures.filter(m => m.group === group);
+
+            // Initialize standings data
+            const standings = {};
+            teamIds.forEach(team => {
+                standings[team] = { P: 0, W: 0, D: 0, L: 0, GF: 0, GA: 0, GD: 0, Pts: 0 };
+            });
+
+            // Calculate standings from matches
+            groupMatches.forEach(match => {
+                const teams = match.teams;
+                if (teams && teams.length === 2) {
+                    const [team1, team2] = teams;
+                    const score = getNumericScore(match);
+                    if (!score) {
+                        return;
+                    }
+
+                    standings[team1].P++;
+                    standings[team2].P++;
+                    standings[team1].GF += score.home;
+                    standings[team1].GA += score.away;
+                    standings[team2].GF += score.away;
+                    standings[team2].GA += score.home;
+
+                    if (score.home > score.away) {
+                        standings[team1].W++;
+                        standings[team1].Pts += 3;
+                        standings[team2].L++;
+                    } else if (score.home < score.away) {
+                        standings[team2].W++;
+                        standings[team2].Pts += 3;
+                        standings[team1].L++;
+                    } else {
+                        standings[team1].D++;
+                        standings[team2].D++;
+                        standings[team1].Pts += 1;
+                        standings[team2].Pts += 1;
+                    }
+
+                    standings[team1].GD = standings[team1].GF - standings[team1].GA;
+                    standings[team2].GD = standings[team2].GF - standings[team2].GA;
+                }
+            });
+
+            // Sort by points (desc), then by goal difference (desc), then by goals for (desc)
+            const sorted = Object.entries(standings).sort((a, b) => {
+                if (b[1].Pts !== a[1].Pts) return b[1].Pts - a[1].Pts;
+                if (b[1].GD !== a[1].GD) return b[1].GD - a[1].GD;
+                return b[1].GF - a[1].GF;
+            });
+
+            const tableHTML = `
+                <div class="standings">
+                    <h3>Group ${group} Standings</h3>
+                    <table class="standings-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 30px;">Pos</th>
+                                <th>Team</th>
+                                <th class="standings-stat">P</th>
+                                <th class="standings-stat">W</th>
+                                <th class="standings-stat">D</th>
+                                <th class="standings-stat">L</th>
+                                <th class="standings-stat">GF</th>
+                                <th class="standings-stat">GA</th>
+                                <th class="standings-stat">GD</th>
+                                <th class="standings-pts">Pts</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${sorted.map((entry, idx) => {
+                const team = entry[0];
+                const stats = entry[1];
+                return `
+                                    <tr>
+                                        <td class="standings-pos">${idx + 1}</td>
+                                        <td>
+                                            <div class="standings-team">
+                                                ${FLAGS[team] || '🏳️'}
+                                                <span>${team}</span>
+                                            </div>
+                                        </td>
+                                        <td class="standings-stat">${stats.P}</td>
+                                        <td class="standings-stat">${stats.W}</td>
+                                        <td class="standings-stat">${stats.D}</td>
+                                        <td class="standings-stat">${stats.L}</td>
+                                        <td class="standings-stat">${stats.GF}</td>
+                                        <td class="standings-stat">${stats.GA}</td>
+                                        <td class="standings-stat">${stats.GD > 0 ? '+' : ''}${stats.GD}</td>
+                                        <td class="standings-pts">${stats.Pts}</td>
+                                    </tr>
+                                `;
+            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+
+            return tableHTML;
+        }
+
+        function getNumericScore(match) {
+            if (typeof match.homeScore === 'number' && typeof match.awayScore === 'number') {
+                return { home: match.homeScore, away: match.awayScore };
+            }
+
+            if (match.score && typeof match.score.home === 'number' && typeof match.score.away === 'number') {
+                return { home: match.score.home, away: match.score.away };
+            }
+
+            if (typeof match.result === 'string') {
+                const m = match.result.match(/(\d+)\s*[-:]\s*(\d+)/);
+                if (m) {
+                    return { home: Number(m[1]), away: Number(m[2]) };
+                }
+            }
+
+            return null;
+        }
+
+        function getMatchScoreText(match) {
+            const score = getNumericScore(match);
+            if (!score) {
+                return 'vs';
+            }
+            return `${score.home}-${score.away}`;
+        }
+
+        function stopGroupLiveRefresh() {
+            if (liveRefreshTimer) {
+                clearInterval(liveRefreshTimer);
+                liveRefreshTimer = null;
+            }
+        }
+
+        function startGroupLiveRefresh() {
+            stopGroupLiveRefresh();
+            refreshFixturesNow();
+            liveRefreshTimer = setInterval(() => {
+                if (selectedGroup) {
+                    refreshFixturesNow();
+                }
+            }, 60000);
+        }
+
+        function refreshFixturesNow() {
+            fetch(`fixtures.json?cacheBust=${Date.now()}`, { cache: 'no-store' })
+                .then(response => response.json())
+                .then(data => {
+                    fixtures = data.sort((a, b) => `${a.date} ${a.timeUK}`.localeCompare(`${b.date} ${b.timeUK}`));
+                    render();
+                })
+                .catch(() => {
+                    // Keep current data if refresh fails.
+                });
+        }
+
+        function ensureFloatingMenuElements() {
+            let menu = document.getElementById('floatingMenu');
+            if (!menu) {
+                menu = document.createElement('div');
+                menu.id = 'floatingMenu';
+                menu.className = 'floatingMenu';
+                menu.innerHTML = `
+                    <div class="floatingMenuHeader">
+                        <h2>All Matches</h2>
+                        <button id="closeMenuBtn">✕</button>
+                    </div>
+                    <div class="floatingMenuContent" id="floatingMenuContent"></div>
+                `;
+                document.body.appendChild(menu);
+            }
+            return menu;
+        }
+
+        const floatingMenu = ensureFloatingMenuElements();
         const floatingMenuContent = document.getElementById('floatingMenuContent');
         const allMatchesBtn = document.getElementById('allMatchesBtn');
         const closeMenuBtn = document.getElementById('closeMenuBtn');
         const nextMatchBtn = document.getElementById('nextMatchBtn');
 
-        allMatchesBtn.onclick = () => {
-            floatingMenu.classList.add('open');
-            renderFloatingMenu();
-        };
+        if (allMatchesBtn) {
+            allMatchesBtn.onclick = () => {
+                floatingMenu.classList.add('open');
+                renderFloatingMenu();
+            };
+        }
 
-        closeMenuBtn.onclick = () => {
-            floatingMenu.classList.remove('open');
-        };
+        if (closeMenuBtn) {
+            closeMenuBtn.onclick = () => {
+                floatingMenu.classList.remove('open');
+            };
+        }
 
-        nextMatchBtn.onclick = () => {
-            const nextMatch = fixtures.find(match => `${match.date} ${match.timeUK}` >= `${selectedDate} ${new Date().toTimeString().slice(0, 5)}` || match.date > selectedDate);
-            if (nextMatch) {
-                setDate(nextMatch.date);
-                setTimeout(() => {
-                    const matchElements = document.querySelectorAll('.match');
-                    if (matchElements.length > 0) {
-                        matchElements[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }, 100);
-            }
-        };
+        if (nextMatchBtn) {
+            nextMatchBtn.onclick = () => {
+                const nextMatch = fixtures.find(match => `${match.date} ${match.timeUK}` >= `${selectedDate} ${new Date().toTimeString().slice(0, 5)}` || match.date > selectedDate);
+                if (nextMatch) {
+                    setDate(nextMatch.date);
+                    setTimeout(() => {
+                        const matchElements = document.querySelectorAll('.match');
+                        if (matchElements.length > 0) {
+                            matchElements[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }, 100);
+                }
+            };
+        }
 
         function renderFloatingMenu() {
             const allMatches = fixtures;
@@ -698,7 +977,7 @@
                 return `
                 <div class="floatingMatchItem">
                     <div class="floatingMatchInfo">
-                        <div class="floatingMatchTeams">${renderTeamShort(match.teams?.[0])} vs ${renderTeamShort(match.teams?.[1])}</div>
+                        <div class="floatingMatchTeams">${renderTeamShort(match.teams?.[0])} <span class="scorePill">${getMatchScoreText(match)}</span> ${renderTeamShort(match.teams?.[1])}</div>
                         <div class="floatingMatchMeta">${match.day} ${formattedDate} · ${match.timeUK}${match.group ? ` · Group ${match.group}` : ''} · ${match.round}</div>
                     </div>
                     <div class="floatingMatchBroadcast">${getBroadcasterIcon(match.broadcast)} ${match.broadcast || 'TBC'}</div>
