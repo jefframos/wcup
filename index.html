@@ -99,6 +99,10 @@
             position: relative;
         }
 
+        .teamMenuWrap {
+            position: relative;
+        }
+
         .groupMenuBtn {
             min-width: 80px;
         }
@@ -121,6 +125,10 @@
 
         .groupMenuPanel.open {
             display: block;
+        }
+
+        .teamMenuPanel {
+            width: 220px;
         }
 
         .groupMenuOption {
@@ -241,6 +249,34 @@
             margin-bottom: 8px;
         }
 
+        .groupOverviewStandings {
+            max-height: 320px;
+            overflow: auto;
+            margin-bottom: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #fafcff;
+            padding: 8px;
+        }
+
+        .groupOverviewStandings .standings {
+            margin: 0;
+        }
+
+        .groupOverviewStandings .standings h3 {
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .groupOverviewStandings .standings-table {
+            font-size: 11px;
+        }
+
+        .groupOverviewStandings .standings th,
+        .groupOverviewStandings .standings td {
+            padding: 3px 4px;
+        }
+
         .groupOverviewTeams {
             display: flex;
             flex-wrap: wrap;
@@ -268,10 +304,6 @@
         .filterPanel {
             display: block;
             margin-top: 6px;
-        }
-
-        header.filters-collapsed .filterPanel {
-            display: none;
         }
 
         .topNav {
@@ -524,6 +556,17 @@
             border-color: #FFD700;
             box-shadow: 0 2px 8px rgba(255, 215, 0, 0.35);
             color: #003399;
+        }
+
+        .teamClearBtn {
+            border-color: #fecaca;
+            background: #fff1f2;
+            color: #9f1239;
+        }
+
+        .teamClearBtn:hover {
+            border-color: #fda4af;
+            background: #ffe4e6;
         }
 
         .flag {
@@ -1309,12 +1352,15 @@
                     <button id="nextDay" aria-label="Next match day" title="Next match day">→</button>
                 </div>
             </div>
-            <button id="filterToggleBtn" class="filterToggleBtn" type="button" aria-expanded="true"
-                aria-controls="filterPanel">Hide Filters</button>
             <div class="groupMenuWrap" id="groupMenuWrap">
                 <button id="groupMenuBtn" class="filterToggleBtn groupMenuBtn" type="button" aria-expanded="false"
                     aria-haspopup="true" aria-controls="groupMenuPanel">Groups</button>
                 <div class="groupMenuPanel" id="groupMenuPanel" role="menu"></div>
+            </div>
+            <div class="teamMenuWrap" id="teamMenuWrap">
+                <button id="teamMenuBtn" class="filterToggleBtn groupMenuBtn" type="button" aria-expanded="false"
+                    aria-haspopup="true" aria-controls="teamMenuPanel">Teams</button>
+                <div class="groupMenuPanel teamMenuPanel" id="teamMenuPanel" role="menu"></div>
             </div>
             <button id="clearFiltersBtn" class="filterToggleBtn clearFiltersBtn" type="button"
                 aria-label="Clear filters" title="Clear filters">✕</button>
@@ -1336,8 +1382,6 @@
 
         <div class="filterPanel" id="filterPanel">
             <div class="bottomDateLabel" id="dateLabel"></div>
-
-            <div class="chips" id="teamChips"></div>
         </div>
     </header>
 
@@ -1390,7 +1434,7 @@
 
     <script>
         // Edit this list to the countries you follow.
-        const FOLLOWED_TEAMS = ['England', 'Scotland', 'Brazil', 'Argentina', 'France', 'Spain', 'Portugal', 'Germany'];
+        const FOLLOWED_TEAMS = ['England', 'Scotland', 'Brazil', 'Argentina', 'France', 'Spain', 'Portugal', 'New Zealand', 'Germany'];
 
         const FLAGS = {
             'Algeria': '<img src="flags/algeria.svg" alt="Algeria" class="flag-img"/>',
@@ -1446,7 +1490,7 @@
 
         let fixtures = [];
         let selectedDate = isoToday();
-        let selectedTeam = '';
+        let selectedTeams = [];
         let selectedGroup = '';
         let liveRefreshTimer = null;
 
@@ -1458,21 +1502,20 @@
         const calendarGrid = document.getElementById('calendarGrid');
         const calendarPrevMonth = document.getElementById('calendarPrevMonth');
         const calendarNextMonth = document.getElementById('calendarNextMonth');
-        const filterToggleBtn = document.getElementById('filterToggleBtn');
         const groupMenuWrap = document.getElementById('groupMenuWrap');
         const groupMenuBtn = document.getElementById('groupMenuBtn');
         const groupMenuPanel = document.getElementById('groupMenuPanel');
+        const teamMenuWrap = document.getElementById('teamMenuWrap');
+        const teamMenuBtn = document.getElementById('teamMenuBtn');
+        const teamMenuPanel = document.getElementById('teamMenuPanel');
         const clearFiltersBtn = document.getElementById('clearFiltersBtn');
-        const pageHeader = document.querySelector('header');
         const dateLabel = document.getElementById('dateLabel');
-        const teamChips = document.getElementById('teamChips');
         const matches = document.getElementById('matches');
         const summary = document.getElementById('summary');
         const nextMatchWidget = document.getElementById('nextMatchWidget');
         const nextMatchTitle = nextMatchWidget ? nextMatchWidget.querySelector('.nextMatchTitle') : null;
         const nextMatchTeams = document.getElementById('nextMatchTeams');
         const nextMatchMeta = document.getElementById('nextMatchMeta');
-        let filtersCollapsed = true;
         let calendarMonthCursor = new Date();
 
         const FILTERS_COOKIE_NAME = 'wcup_filters_v1';
@@ -1497,9 +1540,8 @@
         function saveFiltersToCookie() {
             const payload = {
                 selectedDate,
-                selectedTeam,
-                selectedGroup,
-                filtersCollapsed
+                selectedTeams,
+                selectedGroup
             };
             setCookie(FILTERS_COOKIE_NAME, JSON.stringify(payload), 30);
         }
@@ -1512,14 +1554,13 @@
                 if (saved && typeof saved.selectedDate === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(saved.selectedDate)) {
                     selectedDate = saved.selectedDate;
                 }
-                if (saved && typeof saved.selectedTeam === 'string') {
-                    selectedTeam = saved.selectedTeam;
+                if (saved && Array.isArray(saved.selectedTeams)) {
+                    selectedTeams = saved.selectedTeams.filter(team => typeof team === 'string' && team);
+                } else if (saved && typeof saved.selectedTeam === 'string' && saved.selectedTeam) {
+                    selectedTeams = [saved.selectedTeam];
                 }
                 if (saved && typeof saved.selectedGroup === 'string') {
                     selectedGroup = saved.selectedGroup;
-                }
-                if (saved && typeof saved.filtersCollapsed === 'boolean') {
-                    filtersCollapsed = saved.filtersCollapsed;
                 }
             } catch {
                 // Ignore invalid cookie payload.
@@ -1527,24 +1568,6 @@
         }
 
         loadFiltersFromCookie();
-
-        function updateFilterToggleLabel() {
-            if (!filterToggleBtn) return;
-            filterToggleBtn.textContent = filtersCollapsed ? 'Show Filters' : 'Hide Filters';
-            filterToggleBtn.setAttribute('aria-expanded', String(!filtersCollapsed));
-        }
-
-        function setFiltersCollapsed(collapsed) {
-            filtersCollapsed = !!collapsed;
-            if (pageHeader) {
-                pageHeader.classList.toggle('filters-collapsed', filtersCollapsed);
-            }
-            if (filtersCollapsed) {
-                closeCalendarCard();
-            }
-            updateFilterToggleLabel();
-            saveFiltersToCookie();
-        }
 
         function getAvailableGroups() {
             return [...new Set(fixtures.filter(match => match.group).map(match => match.group))]
@@ -1557,11 +1580,24 @@
             groupMenuBtn.setAttribute('aria-expanded', 'false');
         }
 
+        function closeTeamMenu() {
+            if (!teamMenuPanel || !teamMenuBtn) return;
+            teamMenuPanel.classList.remove('open');
+            teamMenuBtn.setAttribute('aria-expanded', 'false');
+        }
+
         function openGroupMenu() {
             if (!groupMenuPanel || !groupMenuBtn) return;
             renderGroupMenu();
             groupMenuPanel.classList.add('open');
             groupMenuBtn.setAttribute('aria-expanded', 'true');
+        }
+
+        function openTeamMenu() {
+            if (!teamMenuPanel || !teamMenuBtn) return;
+            renderTeamMenu();
+            teamMenuPanel.classList.add('open');
+            teamMenuBtn.setAttribute('aria-expanded', 'true');
         }
 
         function toggleGroupMenu() {
@@ -1573,9 +1609,18 @@
             }
         }
 
+        function toggleTeamMenu() {
+            if (!teamMenuPanel) return;
+            if (teamMenuPanel.classList.contains('open')) {
+                closeTeamMenu();
+            } else {
+                openTeamMenu();
+            }
+        }
+
         function selectGroupFilter(group) {
             selectedGroup = group || '';
-            selectedTeam = '';
+            selectedTeams = [];
             if (selectedGroup) {
                 startGroupLiveRefresh();
                 render();
@@ -1613,6 +1658,72 @@
             });
         }
 
+        function selectTeam(team) {
+            if (selectedTeams.includes(team)) {
+                selectedTeams = selectedTeams.filter(selected => selected !== team);
+            } else {
+                selectedTeams = [...selectedTeams, team];
+            }
+            selectedGroup = '';
+            stopGroupLiveRefresh();
+            saveFiltersToCookie();
+            render();
+            closeTeamMenu();
+        }
+
+        function setAllTeamsSelected() {
+            selectedTeams = getAvailableTeams();
+            selectedGroup = '';
+            stopGroupLiveRefresh();
+            saveFiltersToCookie();
+            render();
+            closeTeamMenu();
+        }
+
+        function clearAllTeamsSelected() {
+            selectedTeams = [];
+            selectedGroup = '';
+            stopGroupLiveRefresh();
+            saveFiltersToCookie();
+            render();
+            closeTeamMenu();
+        }
+
+        function renderTeamMenu() {
+            if (!teamMenuPanel || !teamMenuBtn) return;
+            const teams = getAvailableTeams();
+            const options = [
+                '<button class="groupMenuOption" data-action="select-all">Select All</button>',
+                '<button class="groupMenuOption" data-action="clear-all">Clear All</button>'
+            ];
+
+            teams.forEach(team => {
+                const activeClass = selectedTeams.includes(team) ? ' active' : '';
+                options.push(`<button class="groupMenuOption${activeClass}" data-team="${team}">${FLAGS[team] || '🏳️'} ${getShortName(team)}</button>`);
+            });
+
+            teamMenuPanel.innerHTML = options.join('');
+            teamMenuBtn.textContent = selectedTeams.length ? `Teams (${selectedTeams.length})` : 'Teams';
+
+            teamMenuPanel.querySelectorAll('.groupMenuOption').forEach(button => {
+                button.onclick = () => {
+                    const action = button.dataset.action || '';
+                    if (action === 'select-all') {
+                        setAllTeamsSelected();
+                        return;
+                    }
+                    if (action === 'clear-all') {
+                        clearAllTeamsSelected();
+                        return;
+                    }
+                    const team = button.dataset.team || '';
+                    if (team) {
+                        selectTeam(team);
+                    }
+                };
+            });
+        }
+
         function isoToday() {
             const d = new Date();
             return toIsoDate(d);
@@ -1630,7 +1741,7 @@
 
         function getMatchDatesForCurrentFilter() {
             const dates = fixtures
-                .filter(match => !selectedTeam || (match.teams || []).includes(selectedTeam))
+                .filter(match => !selectedTeams.length || (match.teams || []).some(team => selectedTeams.includes(team)))
                 .map(match => match.date);
             return [...new Set(dates)].sort();
         }
@@ -1771,7 +1882,7 @@
                 cell.onclick = () => {
                     const isoDate = cell.dataset.date;
                     if (!isoDate) return;
-                    selectedTeam = '';
+                    selectedTeams = [];
                     selectedGroup = '';
                     stopGroupLiveRefresh();
                     setDate(isoDate);
@@ -1801,51 +1912,6 @@
             }
         }
 
-        function renderChips() {
-            teamChips.innerHTML = '';
-
-            // Render team chips
-            const teamSection = document.createElement('div');
-            teamSection.style.display = 'flex';
-            teamSection.style.gap = '8px';
-            teamSection.style.overflowX = 'auto';
-            teamSection.style.paddingBottom = '2px';
-            teamSection.style.WebkitOverflowScrolling = 'touch';
-
-            const allTeamBtn = document.createElement('button');
-            allTeamBtn.className = 'teamChip' + (selectedTeam === '' && selectedGroup === '' ? ' active' : '');
-            allTeamBtn.innerHTML = '🌍<span>All</span>';
-            allTeamBtn.onclick = () => {
-                selectedTeam = '';
-                selectedGroup = '';
-                stopGroupLiveRefresh();
-                saveFiltersToCookie();
-                render();
-            };
-            teamSection.appendChild(allTeamBtn);
-
-            FOLLOWED_TEAMS.forEach(team => {
-                teamSection.appendChild(makeChip(team, FLAGS[team] || '🏳️', team));
-            });
-
-            teamChips.appendChild(teamSection);
-        }
-
-        function makeChip(team, flag, label) {
-            const button = document.createElement('button');
-            button.className = 'teamChip' + (team === selectedTeam ? ' active' : '');
-            button.dataset.team = team;
-            button.innerHTML = `<span class="flag">${flag}</span><span>${getShortName(label)}</span>`;
-            button.onclick = () => {
-                selectedTeam = team;
-                selectedGroup = '';
-                stopGroupLiveRefresh();
-                saveFiltersToCookie();
-                render();
-            };
-            return button;
-        }
-
         function getShortName(name) {
             const SHORTS = {
                 'Algeria': 'ALG', 'Argentina': 'ARG', 'Australia': 'AUS', 'Austria': 'AUT', 'Belgium': 'BEL',
@@ -1870,14 +1936,36 @@
             return Array.from(teams);
         }
 
+        function getAvailableTeams() {
+            const teams = new Set();
+            fixtures.forEach(match => {
+                (match.teams || []).forEach(team => teams.add(team));
+            });
+
+            return Array.from(teams)
+                .filter(team => !!FLAGS[team])
+                .sort((a, b) => {
+                    const aIndex = FOLLOWED_TEAMS.indexOf(a);
+                    const bIndex = FOLLOWED_TEAMS.indexOf(b);
+
+                    if (aIndex !== -1 || bIndex !== -1) {
+                        if (aIndex === -1) return 1;
+                        if (bIndex === -1) return -1;
+                        return aIndex - bIndex;
+                    }
+
+                    return a.localeCompare(b, undefined, { numeric: true });
+                });
+        }
+
         function getVisibleMatches() {
             return fixtures.filter(match => {
                 if (selectedGroup) {
                     // When a group is selected, show all matches for that group
                     return match.group === selectedGroup;
-                } else if (selectedTeam) {
-                    // When a team is selected, show all matches for that team
-                    return (match.teams || []).includes(selectedTeam);
+                } else if (selectedTeams.length) {
+                    // When one or more teams are selected, show matches for any selected team
+                    return (match.teams || []).some(team => selectedTeams.includes(team));
                 } else {
                     // When "All" is selected, show matches for the selected date
                     return match.date === selectedDate;
@@ -1888,7 +1976,7 @@
         function render() {
             dateLabel.textContent = `${selectedDate === isoToday() ? 'Today · ' : ''}${prettyDate(selectedDate)}`;
             summary.innerHTML = '';
-            renderChips();
+            renderTeamMenu();
             renderGroupMenu();
             renderNextMatchWidget();
 
@@ -1898,8 +1986,13 @@
             if (selectedGroup) {
                 const groupTeams = getGroupTeams(selectedGroup);
                 summaryText = `Group ${selectedGroup} · ${groupTeams.length} teams · live refresh every 60s`;
-            } else if (selectedTeam) {
-                summaryText = `${rows.length} match${rows.length === 1 ? '' : 'es'} · ${FLAGS[selectedTeam] || ''} ${selectedTeam}`;
+            } else if (selectedTeams.length) {
+                const teamSummary = selectedTeams
+                    .map(team => getShortName(team))
+                    .slice(0, 3)
+                    .join(', ');
+                const extraCount = selectedTeams.length > 3 ? ` +${selectedTeams.length - 3}` : '';
+                summaryText = `${rows.length} match${rows.length === 1 ? '' : 'es'} · ${teamSummary}${extraCount}`;
             } else {
                 summaryText = `${rows.length} match${rows.length === 1 ? '' : 'es'} on ${prettyDate(selectedDate)}`;
             }
@@ -1944,7 +2037,7 @@
                     const group = card.dataset.group;
                     if (group) {
                         selectedGroup = group;
-                        selectedTeam = '';
+                        selectedTeams = [];
                         saveFiltersToCookie();
                         render();
                     }
@@ -2116,7 +2209,7 @@
                 datePicker.value = selectedDate;
             }
 
-            selectedTeam = '';
+            selectedTeams = [];
             if (match.group) {
                 selectedGroup = match.group;
                 startGroupLiveRefresh();
@@ -2293,9 +2386,11 @@
             const cards = groups.map(group => {
                 const teams = getGroupTeams(group);
                 const teamTags = teams.map(team => `<span class="groupOverviewTeam">${FLAGS[team] || '🏳️'} ${getShortName(team)}</span>`).join('');
+                const standings = buildGroupStandingsHTML(group);
                 return `
                     <button class="groupOverviewCard" data-group="${group}" type="button">
                         <div class="groupOverviewTitle">Group ${group}</div>
+                        <div class="groupOverviewStandings">${standings}</div>
                         <div class="groupOverviewTeams">${teamTags}</div>
                     </button>
                 `;
@@ -2465,6 +2560,9 @@
         if (groupMenuBtn) {
             groupMenuBtn.onclick = () => toggleGroupMenu();
         }
+        if (teamMenuBtn) {
+            teamMenuBtn.onclick = () => toggleTeamMenu();
+        }
         calendarPrevMonth.onclick = () => {
             calendarMonthCursor = new Date(calendarMonthCursor.getFullYear(), calendarMonthCursor.getMonth() - 1, 1);
             renderCalendarCard();
@@ -2483,26 +2581,24 @@
             if (groupMenuPanel && groupMenuPanel.classList.contains('open') && groupMenuWrap && !groupMenuWrap.contains(target)) {
                 closeGroupMenu();
             }
+
+            if (teamMenuPanel && teamMenuPanel.classList.contains('open') && teamMenuWrap && !teamMenuWrap.contains(target)) {
+                closeTeamMenu();
+            }
         });
         datePicker.onchange = () => setDate(datePicker.value);
 
-        if (filterToggleBtn) {
-            filterToggleBtn.onclick = () => {
-                setFiltersCollapsed(!filtersCollapsed);
-            };
-        }
-
         if (clearFiltersBtn) {
             clearFiltersBtn.onclick = () => {
-                selectedTeam = '';
+                selectedTeams = [];
                 selectedGroup = '';
                 stopGroupLiveRefresh();
                 saveFiltersToCookie();
                 render();
                 closeGroupMenu();
+                closeTeamMenu();
             };
         }
-        setFiltersCollapsed(filtersCollapsed);
 
         // Remove any old service worker/cache from the previous version.
         if ('serviceWorker' in navigator) {
