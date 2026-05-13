@@ -161,6 +161,27 @@
             color: #0b2a6d;
         }
 
+        .groupMenuRow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .groupMenuFlags {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .groupMenuFlags img {
+            width: 16px;
+            height: 12px;
+            border-radius: 2px;
+            object-fit: cover;
+        }
+
         .groupsMenu {
             position: fixed;
             inset: 0;
@@ -1639,7 +1660,14 @@
                 '<button class="groupMenuOption' + (selectedGroup === '' ? ' active' : '') + '" data-group="">Today View</button>'];
             groups.forEach(group => {
                 const activeClass = selectedGroup === group ? ' active' : '';
-                options.push(`<button class="groupMenuOption${activeClass}" data-group="${group}">Group ${group}</button>`);
+                const flags = getGroupTeams(group)
+                    .map(team => {
+                        const src = getFlagImageSrc(FLAGS[team]);
+                        return src ? `<img src="${src}" alt="${team}" title="${team}" />` : '';
+                    })
+                    .join('');
+
+                options.push(`<button class="groupMenuOption${activeClass}" data-group="${group}"><span class="groupMenuRow"><span>Group ${group}</span><span class="groupMenuFlags">${flags}</span></span></button>`);
             });
             groupMenuPanel.innerHTML = options.join('');
             groupMenuBtn.textContent = selectedGroup ? `Group ${selectedGroup}` : 'Groups';
@@ -1790,6 +1818,14 @@
             const dates = getSortedUniqueDates();
             const idx = dates.indexOf(isoDate);
             return idx >= 0 ? `DAY ${idx + 1}` : 'DAY ?';
+        }
+
+        function getHeaderDateLabel(isoDate) {
+            const dateText = new Date(`${isoDate}T12:00:00`).toLocaleDateString('en-GB', {
+                weekday: 'long', day: 'numeric', month: 'long'
+            });
+            const dayLabel = getDayNumberLabel(isoDate).replace('DAY', 'Day');
+            return `${dateText} (${dayLabel})`;
         }
 
         function setDate(isoDate) {
@@ -1974,7 +2010,7 @@
         }
 
         function render() {
-            dateLabel.textContent = `${selectedDate === isoToday() ? 'Today · ' : ''}${prettyDate(selectedDate)}`;
+            dateLabel.textContent = getHeaderDateLabel(selectedDate);
             summary.innerHTML = '';
             renderTeamMenu();
             renderGroupMenu();
@@ -2050,7 +2086,8 @@
             }
         }
 
-        function buildGroupStandingsHTML(group) {
+        function buildGroupStandingsHTML(group, options = {}) {
+            const compact = !!options.compact;
             const teamIds = getGroupTeams(group);
             const groupMatches = fixtures.filter(m => m.group === group);
 
@@ -2110,16 +2147,14 @@
                     <table class="standings-table">
                         <thead>
                             <tr>
-                                <th style="width: 30px;">Pos</th>
+                                ${compact ? '' : '<th style="width: 30px;">Pos</th>'}
                                 <th>Team</th>
                                 <th class="standings-stat">P</th>
                                 <th class="standings-stat">W</th>
                                 <th class="standings-stat">D</th>
                                 <th class="standings-stat">L</th>
-                                <th class="standings-stat">GF</th>
-                                <th class="standings-stat">GA</th>
-                                <th class="standings-stat">GD</th>
                                 <th class="standings-pts">Pts</th>
+                                ${compact ? '' : '<th class="standings-stat">GF</th><th class="standings-stat">GA</th><th class="standings-stat">GD</th>'}
                             </tr>
                         </thead>
                         <tbody>
@@ -2128,7 +2163,7 @@
                 const stats = entry[1];
                 return `
                                     <tr>
-                                        <td class="standings-pos">${idx + 1}</td>
+                                        ${compact ? '' : `<td class="standings-pos">${idx + 1}</td>`}
                                         <td>
                                             <div class="standings-team">
                                                 ${FLAGS[team] || '🏳️'}
@@ -2139,10 +2174,10 @@
                                         <td class="standings-stat">${stats.W}</td>
                                         <td class="standings-stat">${stats.D}</td>
                                         <td class="standings-stat">${stats.L}</td>
-                                        <td class="standings-stat">${stats.GF}</td>
-                                        <td class="standings-stat">${stats.GA}</td>
-                                        <td class="standings-stat">${stats.GD > 0 ? '+' : ''}${stats.GD}</td>
                                         <td class="standings-pts">${stats.Pts}</td>
+                                        ${compact ? '' : `<td class="standings-stat">${stats.GF}</td>
+                                        <td class="standings-stat">${stats.GA}</td>
+                                        <td class="standings-stat">${stats.GD > 0 ? '+' : ''}${stats.GD}</td>`}
                                     </tr>
                                 `;
             }).join('')}
@@ -2384,14 +2419,11 @@
             }
 
             const cards = groups.map(group => {
-                const teams = getGroupTeams(group);
-                const teamTags = teams.map(team => `<span class="groupOverviewTeam">${FLAGS[team] || '🏳️'} ${getShortName(team)}</span>`).join('');
-                const standings = buildGroupStandingsHTML(group);
+                const standings = buildGroupStandingsHTML(group, { compact: true });
                 return `
                     <button class="groupOverviewCard" data-group="${group}" type="button">
                         <div class="groupOverviewTitle">Group ${group}</div>
                         <div class="groupOverviewStandings">${standings}</div>
-                        <div class="groupOverviewTeams">${teamTags}</div>
                     </button>
                 `;
             }).join('');
