@@ -775,6 +775,25 @@
             width: auto;
         }
 
+        /* Match outcome indicators */
+        .flag-winner,
+        .flag-winner img,
+        .flag-winner svg {
+            filter: drop-shadow(0 0 1.5px #22c55e) drop-shadow(0 0 0.5px #16a34a);
+        }
+
+        .flag-loser,
+        .flag-loser img,
+        .flag-loser svg {
+            filter: drop-shadow(0 0 1.5px #ef4444) drop-shadow(0 0 0.5px #dc2626);
+        }
+
+        .flag-draw,
+        .flag-draw img,
+        .flag-draw svg {
+            filter: drop-shadow(0 0 1.5px #9ca3af) drop-shadow(0 0 0.5px #6b7280);
+        }
+
         .stream {
             color: #64748b;
             font-size: 13px;
@@ -2187,6 +2206,27 @@
             });
         }
 
+        function getMatchOutcome(match, teamIndex) {
+            // Returns: 'winner', 'loser', 'draw', or null
+            const score = getNumericScore(match);
+            if (!score) return null;
+
+            if (score.home === score.away) {
+                return 'draw';
+            }
+
+            const isHome = teamIndex === 0;
+            const isWinner = (isHome && score.home > score.away) || (!isHome && score.away > score.home);
+            return isWinner ? 'winner' : 'loser';
+        }
+
+        function renderTeam(team, match, teamIndex) {
+            if (!team) return '';
+            const outcome = match ? getMatchOutcome(match, teamIndex) : null;
+            const outcomeClass = outcome ? `flag-${outcome}` : '';
+            return `<span class='flag ${outcomeClass}'>${FLAGS[team] || '🏳️'}</span><span>${getShortName(team)}</span>`;
+        }
+
         function render() {
             dateLabel.textContent = getHeaderDateLabel(selectedDate);
             summary.innerHTML = '';
@@ -2239,7 +2279,7 @@
           <div class="matchTop">
             <div>
               <div class="fixture">
-                                ${renderTeam(match.teams?.[0])} <span class="scorePill">${getMatchScoreText(match)}</span> ${renderTeam(match.teams?.[1])}
+                                ${renderTeam(match.teams?.[0], match, 0)} <span class="scorePill">${getMatchScoreText(match)}</span> ${renderTeam(match.teams?.[1], match, 1)}
               </div>
                             <div class="meta">${getDayNumberLabel(match.date)} · ${shortWeekday(match)} ${dateDisplay} · ${match.round}${match.group ? ` · Group ${match.group}` : ''}</div>
             </div>
@@ -2267,11 +2307,6 @@
                     }
                 });
             });
-
-            function renderTeam(team) {
-                if (!team) return '';
-                return `<span class='flag'>${FLAGS[team] || '🏳️'}</span><span>${getShortName(team)}</span>`;
-            }
         }
 
         function buildGroupStandingsHTML(group, options = {}) {
@@ -2737,7 +2772,7 @@
                     return `
                     <div class="listMatchItem ${getBroadcasterClass(match.broadcast)} ${isMatchFinished(match) ? 'finished' : ''}" data-matchno="${match.matchNo || ''}" data-group="${match.group || ''}" data-date="${match.date || ''}">
                         <div class="listMatchInfo">
-                            <div class="listMatchTeams">${renderTeamShort(match.teams?.[0])} <span class="scorePill">${getMatchScoreText(match)}</span> ${renderTeamShort(match.teams?.[1])}</div>
+                            <div class="listMatchTeams">${renderTeam(match.teams?.[0], match, 0)} <span class="scorePill">${getMatchScoreText(match)}</span> ${renderTeam(match.teams?.[1], match, 1)}</div>
                             <div class="listMatchMeta">${shortWeekday(match)} ${formattedDate} · ${displayTime}${dayChangeNote}${match.group ? ` · Group ${match.group}` : ''} · ${match.round}</div>
                         </div>
                         <div class="listMatchBroadcast">${getBroadcasterIcon(match.broadcast)} ${match.broadcast || 'TBC'}</div>
@@ -2770,8 +2805,12 @@
             const tiles = sortedMatches.map(match => {
                 const teamA = match.teams?.[0] || 'TBD';
                 const teamB = match.teams?.[1] || 'TBD';
+                const outcomeA = teamA !== 'TBD' ? getMatchOutcome(match, 0) : null;
+                const outcomeB = teamB !== 'TBD' ? getMatchOutcome(match, 1) : null;
                 const flagA = FLAGS[teamA] || '<span class="mosaicVs">TBD</span>';
                 const flagB = FLAGS[teamB] || '<span class="mosaicVs">TBD</span>';
+                const flagAHtml = outcomeA ? `<span class="flag-${outcomeA}">${flagA}</span>` : flagA;
+                const flagBHtml = outcomeB ? `<span class="flag-${outcomeB}">${flagB}</span>` : flagB;
                 const centerLabel = getMatchScoreText(match) === 'vs' ? 'v' : getMatchScoreText(match);
                 const tzConversion = convertTimeToTimezone(match.date, match.timeUK, match.venueCity, selectedTimezone);
                 const displayTime = selectedTimezone === 'Europe/London' ? match.timeUK : tzConversion.time;
@@ -2783,9 +2822,9 @@
                 return `
                     <button class="mosaicCard ${bcClass} ${isMatchFinished(match) ? 'finished' : ''}" data-matchno="${match.matchNo || ''}" data-date="${match.date || ''}" data-group="${match.group || ''}" type="button">
                         <div class="mosaicFlags">
-                            <span class="mosaicFlag">${flagA}</span>
+                            <span class="mosaicFlag">${flagAHtml}</span>
                             <span class="mosaicVs">${centerLabel}</span>
-                            <span class="mosaicFlag">${flagB}</span>
+                            <span class="mosaicFlag">${flagBHtml}</span>
                         </div>
                         <div class="mosaicMeta">${when} · ${displayTime || ''}</div>
                     </button>
