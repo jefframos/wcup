@@ -11,6 +11,8 @@
       "Mexico",
       "South Africa"
     ],
+    "homeScore": 2,
+    "awayScore": 0,
     "venueCity": "Mexico City",
     "hostCountry": "Mexico",
     "broadcast": "ITV1 / STV",
@@ -29,6 +31,8 @@
       "South Korea",
       "Czech Republic"
     ],
+    "homeScore": 2,
+    "awayScore": 1,
     "venueCity": "Zapopan",
     "hostCountry": "Mexico",
     "broadcast": "ITV",
