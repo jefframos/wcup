@@ -1539,7 +1539,7 @@
     </div>
 
     <script>
-        window.WCUP_PROXY_BASE_URL = 'https://wcup-quna.onrender.com';
+        window.WCUP_PROXY_BASE_URL = window.WCUP_PROXY_BASE_URL || 'https://wcup-quna.onrender.com';
 
         // Edit this list to the countries you follow.
         const FOLLOWED_TEAMS = ['England', 'Scotland', 'Brazil', 'Argentina', 'France', 'Spain', 'Portugal', 'New Zealand', 'Germany'];
@@ -2526,6 +2526,7 @@
         }
 
         function getScoresApiUrl() {
+            const defaultRemoteBase = 'https://wcup-quna.onrender.com';
             const customBase = typeof window.WCUP_PROXY_BASE_URL === 'string'
                 ? window.WCUP_PROXY_BASE_URL.trim()
                 : '';
@@ -2536,7 +2537,15 @@
 
             const host = window.location.hostname;
             const isLocalHost = host === 'localhost' || host === '127.0.0.1';
-            return isLocalHost ? 'http://localhost:3000/api/scores' : null;
+            if (isLocalHost) {
+                return 'http://localhost:3000/api/scores';
+            }
+
+            if (host.endsWith('github.io')) {
+                return `${defaultRemoteBase}/api/scores`;
+            }
+
+            return `${defaultRemoteBase}/api/scores`;
         }
 
         function fetchLiveScores(options = {}) {
