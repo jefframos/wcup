@@ -1632,6 +1632,9 @@
         let selectedGroup = '';
         let selectedTimezone = 'Europe/London';
         let liveRefreshTimer = null;
+        let liveScoresInFlight = null;
+        let liveScoresCache = { fetchedAt: 0, scoreMap: {} };
+        let sportsDbCooldownUntil = 0;
 
         const datePicker = document.getElementById('datePicker');
         const calendarBtn = document.getElementById('calendarBtn');
@@ -1683,7 +1686,8 @@
             const payload = {
                 selectedDate,
                 selectedTeams,
-                selectedGroup,
+                // Avoid sticky group filter after reload.
+                selectedGroup: '',
                 selectedTimezone
             };
             setCookie(FILTERS_COOKIE_NAME, JSON.stringify(payload), 30);
@@ -1702,9 +1706,7 @@
                 } else if (saved && typeof saved.selectedTeam === 'string' && saved.selectedTeam) {
                     selectedTeams = [saved.selectedTeam];
                 }
-                if (saved && typeof saved.selectedGroup === 'string') {
-                    selectedGroup = saved.selectedGroup;
-                }
+                // Group filter is intentionally not restored from cookie.
                 if (saved && typeof saved.selectedTimezone === 'string' && TIMEZONE_OFFSETS[saved.selectedTimezone]) {
                     selectedTimezone = saved.selectedTimezone;
                 }
@@ -2515,45 +2517,57 @@
             }
         }
 
+        // Note: Team name normalization handled by proxy server
+        // Keeping this stub for backward compatibility
         function normalizeSportsDBTeamName(name) {
-            // Map SportsDB team names to local fixtures format
-            const mapping = {
-                'Curaçao': 'Curacao',
-                'Côte d\'Ivoire': 'Ivory Coast',
-                'Congo DR': 'DR Congo',
-                'Türkiye': 'Turkey',
-                'Korea Republic': 'South Korea',
-                'IR Iran': 'Iran',
-            };
-            return mapping[name] || name;
+            return name;
         }
 
-        function fetchLiveScores() {
-            return fetch('https://www.thesportsdb.com/api/v1/json/3/eventsseason.php?id=4429&s=2026', { cache: 'no-store' })
-                .then(response => {
-                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                    return response.json();
-                })
-                .then(data => {
-                    if (!data.events || !Array.isArray(data.events)) return {};
-                    const scoreMap = {};
-                    data.events.forEach(event => {
-                        const home = normalizeSportsDBTeamName(event.strHomeTeam);
-                        const away = normalizeSportsDBTeamName(event.strAwayTeam);
-                        const key = `${home}|${away}`;
-                        if (event.intHomeScore !== null && event.intAwayScore !== null) {
-                            scoreMap[key] = {
-                                homeScore: parseInt(event.intHomeScore),
-                                awayScore: parseInt(event.intAwayScore)
-                            };
+        function fetchLiveScores(options = {}) {
+            const now = Date.now();
+            const proxyUrl = 'http://localhost:3000/api/scores';
+
+            // Avoid hammering proxy: reuse a recent result for 2 minutes.
+            if (!options.force && (now - liveScoresCache.fetchedAt) < 120000) {
+                return Promise.resolve(liveScoresCache.scoreMap || {});
+            }
+
+            // If we were rate-limited, skip network calls for a short cooldown window.
+            if (sportsDbCooldownUntil > now) {
+                return Promise.resolve(liveScoresCache.scoreMap || {});
+            }
+
+            // Deduplicate concurrent callers (initial load + overlays + refresh timers).
+            if (liveScoresInFlight) {
+                return liveScoresInFlight;
+            }
+
+            liveScoresInFlight = (async () => {
+                try {
+                    const response = await fetch(proxyUrl, { cache: 'no-store' });
+
+                    if (!response.ok) {
+                        if (response.status === 429) {
+                            sportsDbCooldownUntil = Date.now() + 5 * 60 * 1000;
+                            console.warn('Score proxy rate-limited. Using cached scores for 5 minutes.');
+                            return liveScoresCache.scoreMap || {};
                         }
-                    });
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+
+                    const scoreMap = await response.json();
+                    liveScoresCache = { fetchedAt: now, scoreMap };
+                    console.log(`[PROXY] Fetched ${Object.keys(scoreMap).length} finished matches`);
                     return scoreMap;
-                })
-                .catch(error => {
-                    console.warn('Failed to fetch live scores from SportsDB:', error);
-                    return {};
-                });
+                } catch (error) {
+                    console.warn('Failed to fetch live scores from proxy:', error);
+                    return liveScoresCache.scoreMap || {};
+                } finally {
+                    liveScoresInFlight = null;
+                }
+            })();
+
+            return liveScoresInFlight;
         }
 
         function mergeScores(scoreMap) {
@@ -2577,7 +2591,7 @@
         }
 
         function refreshFixturesNow() {
-            fetchLiveScores()
+            fetchLiveScores({ recentOnly: true })
                 .then(scoreMap => {
                     mergeScores(scoreMap);
                     render();
@@ -2588,7 +2602,7 @@
         }
 
         function refreshFixturesSilent() {
-            return fetchLiveScores()
+            return fetchLiveScores({ recentOnly: false })
                 .then(scoreMap => {
                     mergeScores(scoreMap);
                 })
@@ -2635,6 +2649,9 @@
                 event.stopPropagation();
                 listMenu.classList.add('open');
                 renderAllMatchesList();
+                refreshFixturesSilent().then(() => {
+                    renderAllMatchesList();
+                });
             };
         }
 
@@ -2943,7 +2960,7 @@
                 fixtures = data.sort((a, b) => `${a.date} ${a.timeUK}`.localeCompare(`${b.date} ${b.timeUK}`));
 
                 // Fetch live scores from SportsDB in background
-                fetchLiveScores()
+                fetchLiveScores({ recentOnly: false })
                     .then(scoreMap => {
                         mergeScores(scoreMap);
                         render();
