@@ -2523,9 +2523,28 @@
             return name;
         }
 
+        function getScoresApiUrl() {
+            const customBase = typeof window.WCUP_PROXY_BASE_URL === 'string'
+                ? window.WCUP_PROXY_BASE_URL.trim()
+                : '';
+
+            if (customBase) {
+                return `${customBase.replace(/\/$/, '')}/api/scores`;
+            }
+
+            const host = window.location.hostname;
+            const isLocalHost = host === 'localhost' || host === '127.0.0.1';
+            return isLocalHost ? 'http://localhost:3000/api/scores' : null;
+        }
+
         function fetchLiveScores(options = {}) {
             const now = Date.now();
-            const proxyUrl = 'http://localhost:3000/api/scores';
+            const proxyUrl = getScoresApiUrl();
+
+            if (!proxyUrl) {
+                console.warn('Live scores disabled: no proxy URL configured for this host. Set window.WCUP_PROXY_BASE_URL to your deployed proxy base URL.');
+                return Promise.resolve(liveScoresCache.scoreMap || {});
+            }
 
             // Avoid hammering proxy: reuse a recent result for 2 minutes.
             if (!options.force && (now - liveScoresCache.fetchedAt) < 120000) {
